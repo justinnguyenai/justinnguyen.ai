@@ -55,11 +55,19 @@ header .container {
 main {
     display: flex;
     gap: 1rem;
-    margin-top: 2rem;
+    margin-top: 1rem;
 }
 
 .main-content {
     flex: 2;
+}
+
+.main-content section:last-child {
+    margin-bottom: 0;
+}
+
+aside section:last-child {
+    margin-bottom: 0;
 }
 
 aside {
@@ -171,13 +179,13 @@ h2 {
     cursor: pointer;
     padding: 0;
     position: absolute;
-    top: 2rem;  /* Changed from 1rem to 3rem */
-    right: 2rem;  /* Changed from 1rem to 3rem */
+    top: 2rem;
+    right: 2rem;
 }
 
 .dark-mode-toggle svg {
-    width: 36px;  /* Increased from 24px to 36px (50% larger) */
-    height: 36px;  /* Increased from 24px to 36px (50% larger) */
+    width: 36px;
+    height: 36px;
     color: #333;
     transition: color 0.3s ease;
 }
@@ -234,10 +242,6 @@ body.dark-mode .dark-mode-toggle svg {
 
     aside {
         margin-top: 0;
-    }
-
-    .main-content section:last-child {
-        margin-bottom: 0rem;
     }
 
     aside section:first-child {
