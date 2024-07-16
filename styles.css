@@ -48,7 +48,7 @@ header .container {
 
 main {
     display: flex;
-    gap: 2rem;
+    gap: 1rem;
     margin-top: 2rem;
 }
 
@@ -76,7 +76,7 @@ h2 {
 .project-grid {
     display: grid;
     grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-    gap: 1.5rem;
+    gap: 1rem;
 }
 
 .project-card {
@@ -161,5 +161,29 @@ h2 {
 @media (max-width: 768px) {
     main {
         flex-direction: column;
+    }
+
+    .main-content, aside {
+        width: 100%;
+    }
+
+    /* Reduce bottom margin of main content */
+    .main-content {
+        margin-bottom: 0rem;
+    }
+
+    /* Reduce top margin of aside */
+    aside {
+        margin-top: 0;
+    }
+
+    /* Reduce bottom margin of the last section in main content */
+    .main-content section:last-child {
+        margin-bottom: 0rem;
+    }
+
+    /* Reduce top margin of the first section in aside */
+    aside section:first-child {
+        margin-top: 0;
     }
 }
