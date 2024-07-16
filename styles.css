@@ -21,8 +21,10 @@ header {
 }
 
 header .container {
+    position: relative;
     display: flex;
     align-items: center;
+    justify-content: flex-start;
 }
 
 .profile-picture {
@@ -30,6 +32,10 @@ header .container {
     height: 100px;
     border-radius: 50%;
     margin-right: 1rem;
+}
+
+.header-text {
+    flex-grow: 1;
 }
 
 .header-text h1 {
@@ -158,6 +164,61 @@ h2 {
     border-radius: 4px;
 }
 
+/* Dark mode toggle styles */
+.dark-mode-toggle {
+    background: none;
+    border: none;
+    cursor: pointer;
+    padding: 0;
+    position: absolute;
+    top: 2rem;  /* Changed from 1rem to 3rem */
+    right: 2rem;  /* Changed from 1rem to 3rem */
+}
+
+.dark-mode-toggle svg {
+    width: 36px;  /* Increased from 24px to 36px (50% larger) */
+    height: 36px;  /* Increased from 24px to 36px (50% larger) */
+    color: #333;
+    transition: color 0.3s ease;
+}
+
+/* Dark mode styles */
+body.dark-mode {
+    background-color: #1a1a1a;
+    color: #e0e0e0;
+}
+
+body.dark-mode header,
+body.dark-mode section,
+body.dark-mode .project-card {
+    background-color: #2a2a2a;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.2);
+}
+
+body.dark-mode h1,
+body.dark-mode h2,
+body.dark-mode h3,
+body.dark-mode .skill-name {
+    color: #e0e0e0;
+}
+
+body.dark-mode .header-text p,
+body.dark-mode .skill-percentage {
+    color: #b0b0b0;
+}
+
+body.dark-mode .view-project {
+    background-color: #9f67ff;
+}
+
+body.dark-mode .skill-bar {
+    background-color: #3a3a3a;
+}
+
+body.dark-mode .dark-mode-toggle svg {
+    color: #e0e0e0;
+}
+
 @media (max-width: 768px) {
     main {
         flex-direction: column;
@@ -167,23 +228,33 @@ h2 {
         width: 100%;
     }
 
-    /* Reduce bottom margin of main content */
     .main-content {
         margin-bottom: 0rem;
     }
 
-    /* Reduce top margin of aside */
     aside {
         margin-top: 0;
     }
 
-    /* Reduce bottom margin of the last section in main content */
     .main-content section:last-child {
         margin-bottom: 0rem;
     }
 
-    /* Reduce top margin of the first section in aside */
     aside section:first-child {
         margin-top: 0;
+    }
+
+    header .container {
+        flex-direction: column;
+        align-items: flex-start;
+    }
+
+    .profile-picture {
+        margin-bottom: 0rem;
+    }
+
+    .dark-mode-toggle {
+        top: 2rem;
+        right: 2rem;
     }
 }
