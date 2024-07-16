@@ -97,7 +97,7 @@ h2 {
     background-color: white;
     border-radius: 8px;
     overflow: hidden;
-    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+    box-shadow: 0 3px 6px rgba(0,0,0,0.3);
 }
 
 .project-card img {
@@ -190,17 +190,22 @@ h2 {
     transition: color 0.3s ease;
 }
 
-/* Dark mode styles */
+/* General dark mode styles */
 body.dark-mode {
     background-color: #1a1a1a;
     color: #e0e0e0;
 }
 
 body.dark-mode header,
-body.dark-mode section,
-body.dark-mode .project-card {
+body.dark-mode section {
     background-color: #2a2a2a;
     box-shadow: 0 2px 4px rgba(0,0,0,0.2);
+}
+
+/* Specific styles for project cards in dark mode */
+body.dark-mode .project-card {
+    background-color: #2a2a2a;
+    box-shadow: 0 3px 6px rgba(0, 0, 0, 0.7);
 }
 
 body.dark-mode h1,
