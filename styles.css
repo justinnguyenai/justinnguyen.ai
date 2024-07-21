@@ -119,6 +119,11 @@ h2 {
     border-radius: 4px;
     cursor: pointer;
     font-size: 0.9rem;
+    transition: background-color 0.3s ease;
+}
+
+.view-project:hover {
+    background-color: #6d28d9;
 }
 
 #contact-me ul {
@@ -222,6 +227,10 @@ body.dark-mode .skill-percentage {
 
 body.dark-mode .view-project {
     background-color: #9f67ff;
+}
+
+body.dark-mode .view-project:hover {
+    background-color: #8b5cf6;
 }
 
 body.dark-mode .skill-bar {
