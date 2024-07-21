@@ -5,23 +5,30 @@ const openai = new OpenAI({
 });
 
 async function generateMtgCard() {
-  // Generate a random number between 0 and 10 (inclusive) for mana cost
-  const randomManaCost = Math.floor(Math.random() * 11);
-
-  // Generate a random number between 0 and 6 (inclusive) for color
-  const randomColorNumber = Math.floor(Math.random() * 7);
-  const colors = ['colorless', 'white', 'blue', 'black', 'red', 'green', 'multicolored'];
-  const cardColor = colors[randomColorNumber];
+  // Generate a random number between 0 and 3 (inclusive) for rarity
+  const randomRarityNumber = Math.floor(Math.random() * 4);
+  const rarities = ['common', 'uncommon', 'rare', 'mythic rare'];
+  const cardRarity = rarities[randomRarityNumber];
 
   // Generate a random number between 0 and 7 (inclusive) for card type
   const randomTypeNumber = Math.floor(Math.random() * 8);
   const cardTypes = ['land', 'creature', 'artifact', 'enchantment', 'planeswalker', 'battle', 'instant', 'sorcery'];
   const cardType = cardTypes[randomTypeNumber];
 
-  // Generate a random number between 0 and 3 (inclusive) for rarity
-  const randomRarityNumber = Math.floor(Math.random() * 4);
-  const rarities = ['common', 'uncommon', 'rare', 'mythic rare'];
-  const cardRarity = rarities[randomRarityNumber];
+  // Generate mana cost based on card type
+  const randomManaCost = cardType === 'land' ? 0 : Math.floor(Math.random() * 10) + 1;
+
+  // Generate color based on mana cost
+  let cardColor;
+  if (randomManaCost === 0) {
+    cardColor = 'colorless';
+  } else if (randomManaCost >= 2) {
+    const colors = ['white', 'blue', 'black', 'red', 'green', 'multicolored'];
+    cardColor = colors[Math.floor(Math.random() * colors.length)];
+  } else {
+    const colors = ['white', 'blue', 'black', 'red', 'green'];
+    cardColor = colors[Math.floor(Math.random() * colors.length)];
+  }
 
   const prompt = `Generate a new Magic: The Gathering card with the following specifications:
 
@@ -34,23 +41,23 @@ Please provide the following information in a structured format WITHOUT any Mark
 
 Card Name:
 Mana Cost: (Use {W} for White, {U} for Blue, {B} for Black, {R} for Red, {G} for Green)
-Type Line:
+Card Type:
 Card Text:
-${cardType === 'creature' ? 'Power/Toughness:' : ''}
-${cardType === 'planeswalker' ? 'Loyalty:' : ''}
-${cardType === 'battle' ? 'Defense:' : ''}
+${cardType === 'creature' ? 'Power/Toughness:' : cardType === 'planeswalker' ? 'Loyalty:' : cardType === 'battle' ? 'Defense:' : ''}
 Flavor Text:
 ---
 Brief Review: (<6 sentences on balance, synergy, playability, etc.)
 
 Ensure that:
 - The card name is creative and thematic.
-- The mana cost reflects the color and power level.
+- The mana cost reflects the color and power level. For lands and colorless cards, there should be no colored mana symbols in the cost.
+- If the card is multicolored, include at least two different colors in its mana cost.
 - The card text is clear, concise, and follows Magic: The Gathering conventions.
 - All elements are consistent with the card's color, type, and rarity.
 - The card is balanced and interesting for gameplay.
 - Do not use any special formatting characters like asterisks or underscores.
-- Only include Power/Toughness for creatures, Loyalty for planeswalkers, and Defense for battles.
+- Only include Mana Cost for nonlands, Power/Toughness for creatures, Loyalty for planeswalkers, and Defense for battles.
+- Do not include empty lines.
 - Include the '---' separator exactly as shown above to divide the flavor text from the brief review.`;
 
   try {
