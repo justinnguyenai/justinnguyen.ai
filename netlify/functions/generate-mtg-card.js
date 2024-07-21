@@ -23,40 +23,42 @@ async function generateMtgCard() {
   const rarities = ['common', 'uncommon', 'rare', 'mythic rare'];
   const cardRarity = rarities[randomRarityNumber];
 
-  const prompt = `Generate a new Magic: The Gathering card with a mana cost of ${randomManaCost}, color ${cardColor}, card type ${cardType}, and rarity ${cardRarity}. Include the following elements:
-  1. card name
-  2. mana cost (must be exactly ${randomManaCost}, and should reflect the color ${cardColor})
-  3. card type (${cardType})
-  4. color (${cardColor})
-  5. rarity (${cardRarity})
-  6. card text (including any abilities)
-  7. power/toughness (if applicable for creatures)
-  8. loyalty (if applicable for planeswalkers)
-  9. defense (if applicable for battles)
-  10. flavor text
-  11. brief review of the card (balance, synergy, playability, etc.)
+  const prompt = `Generate a new Magic: The Gathering card with the following specifications:
 
-  - Everything should be in english.
-  - Double-check to make sure the card makes sense.
-  - Double-check to make sure the card is well-designed.
-  - The mana cost, color, card type, and rarity should all be consistent and reflect the power level and abilities of the card.
-  - If the card is colorless, ensure it doesn't have colored mana symbols in its cost.
-  - If it's multicolored, include at least two different colors in its mana cost.
-  - If it's a land, it typically shouldn't have a mana cost unless it's a special design.
-  - Ensure the card text and abilities are appropriate for the chosen card type.
-  - The rarity should be reflected in the card's complexity and power level (e.g., mythic rare cards are typically more powerful or unique than common cards).
-  - Remove markdown formatting.`;
+1. Mana Cost: ${randomManaCost}
+2. Color: ${cardColor}
+3. Card Type: ${cardType}
+4. Rarity: ${cardRarity}
+
+Please provide the following information in a structured format:
+
+- Card Name:
+- Mana Cost: (Use {W} for White, {U} for Blue, {B} for Black, {R} for Red, {G} for Green, and {C} for Colorless)
+- Type Line:
+- Card Text:
+- Power/Toughness: (if creature)
+- Loyalty: (if planeswalker)
+- Defense: (if battle)
+- Flavor Text:
+- Brief Review: (<8 sentences on balance, synergy, playability, etc.)
+
+Ensure that:
+- The card name is creative and thematic.
+- The mana cost reflects the color and power level.
+- The card text is clear, concise, and follows Magic: The Gathering conventions.
+- All elements are consistent with the card's color, type, and rarity.
+- The card is balanced and interesting for gameplay.`;
 
   try {
     const response = await openai.chat.completions.create({
-      model: "gpt-4o",
+      model: "gpt-4o-mini",
       messages: [
-        { role: "system", content: "You are a creative assistant specialized in generating new Magic: The Gathering cards." },
+        { role: "system", content: "You are a Magic: The Gathering card designer with extensive knowledge of the game's rules, mechanics, and design principles." },
         { role: "user", content: prompt }
       ],
       max_tokens: 500,
       n: 1,
-      temperature: 2,
+      temperature: 1,
     });
 
     return response.choices[0].message.content.trim();
