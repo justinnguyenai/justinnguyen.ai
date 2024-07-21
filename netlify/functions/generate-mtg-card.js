@@ -33,13 +33,14 @@ async function generateMtgCard() {
 Please provide the following information in a structured format WITHOUT any Markdown formatting:
 
 Card Name:
-Mana Cost: (Use {W} for White, {U} for Blue, {B} for Black, {R} for Red, {G} for Green, and {C} for Colorless)
+Mana Cost: (Use {W} for White, {U} for Blue, {B} for Black, {R} for Red, {G} for Green)
 Type Line:
 Card Text:
-Power/Toughness: (if creature, remove if not)
-Loyalty: (if planeswalker, remove if not)
-Defense: (if battle, remove if not)
+${cardType === 'creature' ? 'Power/Toughness:' : ''}
+${cardType === 'planeswalker' ? 'Loyalty:' : ''}
+${cardType === 'battle' ? 'Defense:' : ''}
 Flavor Text:
+---
 Brief Review: (<6 sentences on balance, synergy, playability, etc.)
 
 Ensure that:
@@ -48,7 +49,9 @@ Ensure that:
 - The card text is clear, concise, and follows Magic: The Gathering conventions.
 - All elements are consistent with the card's color, type, and rarity.
 - The card is balanced and interesting for gameplay.
-- Do not use any special formatting characters like asterisks or underscores.`;
+- Do not use any special formatting characters like asterisks or underscores.
+- Only include Power/Toughness for creatures, Loyalty for planeswalkers, and Defense for battles.
+- Include the '---' separator exactly as shown above to divide the flavor text from the brief review.`;
 
   try {
     const response = await openai.chat.completions.create({
