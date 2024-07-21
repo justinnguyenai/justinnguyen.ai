@@ -267,3 +267,13 @@ body.dark-mode .dark-mode-toggle svg {
         right: 2rem;
     }
 }
+
+.profile-link {
+    display: inline-block;
+    line-height: 0;  /* This removes any extra space below the image */
+}
+
+.profile-link:hover {
+    opacity: 0.8;  /* This adds a subtle hover effect */
+    transition: opacity 0.3s ease;
+}
