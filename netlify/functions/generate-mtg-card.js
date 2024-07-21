@@ -20,7 +20,7 @@ async function generateMtgCard() {
 
   // Generate color based on mana cost
   let cardColor;
-  if (randomManaCost === 0) {
+  if (randomManaCost === 0 || cardType === 'artifact') {
     cardColor = 'colorless';
   } else if (randomManaCost >= 2) {
     const colors = ['white', 'blue', 'black', 'red', 'green', 'multicolored'];
@@ -29,6 +29,14 @@ async function generateMtgCard() {
     const colors = ['white', 'blue', 'black', 'red', 'green'];
     cardColor = colors[Math.floor(Math.random() * colors.length)];
   }
+
+  const cardTypeAttributes = {
+    creature: 'Power/Toughness:',
+    planeswalker: 'Loyalty:',
+    battle: 'Defense:'
+  };
+
+  const additionalAttribute = cardTypeAttributes[cardType] || '';
 
   const prompt = `Generate a new Magic: The Gathering card with the following specifications:
 
@@ -40,10 +48,9 @@ async function generateMtgCard() {
 Please provide the following information in a structured format WITHOUT any Markdown formatting:
 
 Card Name:
-Mana Cost: (Use {W} for White, {U} for Blue, {B} for Black, {R} for Red, {G} for Green)
+Mana Cost:
 Card Type:
-Card Text:
-${cardType === 'creature' ? 'Power/Toughness:' : cardType === 'planeswalker' ? 'Loyalty:' : cardType === 'battle' ? 'Defense:' : ''}
+Card Text:${additionalAttribute ? '\n' + additionalAttribute : ''}
 Flavor Text:
 ---
 Brief Review: (<6 sentences on balance, synergy, playability, etc.)
@@ -56,7 +63,7 @@ Ensure that:
 - All elements are consistent with the card's color, type, and rarity.
 - The card is balanced and interesting for gameplay.
 - Do not use any special formatting characters like asterisks or underscores.
-- Only include Mana Cost for nonlands, Power/Toughness for creatures, Loyalty for planeswalkers, and Defense for battles.
+- Only include Power/Toughness for creatures, Loyalty for planeswalkers, and Defense for battles.
 - Do not include empty lines.
 - Include the '---' separator exactly as shown above to divide the flavor text from the brief review.`;
 
