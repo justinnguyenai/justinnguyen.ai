@@ -1,9 +1,8 @@
-const { Configuration, OpenAIApi } = require("openai");
+const OpenAI = require("openai");
 
-const configuration = new Configuration({
+const openai = new OpenAI({
   apiKey: process.env.OPENAI_API_KEY,
 });
-const openai = new OpenAIApi(configuration);
 
 async function generateMtgCard() {
   const prompt = `Generate a new Magic: The Gathering card. Include the following elements:
@@ -19,8 +18,8 @@ async function generateMtgCard() {
   Double-check to make sure the card makes sense, is well-designed, and is balanced (not overpowered, not underpowered).`;
 
   try {
-    const response = await openai.createChatCompletion({
-      model: "gpt-4-mini",
+    const response = await openai.chat.completions.create({
+      model: "gpt-4o-mini",
       messages: [
         { role: "system", content: "You are a creative assistant specialized in generating new Magic: The Gathering cards." },
         { role: "user", content: prompt }
@@ -30,7 +29,7 @@ async function generateMtgCard() {
       temperature: 1,
     });
 
-    return response.data.choices[0].message.content.trim();
+    return response.choices[0].message.content.trim();
   } catch (error) {
     console.error('Error:', error);
     return `Error: ${error.message}`;
