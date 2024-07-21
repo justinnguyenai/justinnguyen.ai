@@ -30,30 +30,31 @@ async function generateMtgCard() {
 3. Card Type: ${cardType}
 4. Rarity: ${cardRarity}
 
-Please provide the following information in a structured format:
+Please provide the following information in a structured format WITHOUT any Markdown formatting:
 
-- Card Name:
-- Mana Cost: (Use {W} for White, {U} for Blue, {B} for Black, {R} for Red, {G} for Green, and {C} for Colorless)
-- Type Line:
-- Card Text:
-- Power/Toughness: (if creature)
-- Loyalty: (if planeswalker)
-- Defense: (if battle)
-- Flavor Text:
-- Brief Review: (<8 sentences on balance, synergy, playability, etc.)
+Card Name:
+Mana Cost: (Use {W} for White, {U} for Blue, {B} for Black, {R} for Red, {G} for Green, and {C} for Colorless)
+Type Line:
+Card Text:
+Power/Toughness: (if creature, remove if not)
+Loyalty: (if planeswalker, remove if not)
+Defense: (if battle, remove if not)
+Flavor Text:
+Brief Review: (<6 sentences on balance, synergy, playability, etc.)
 
 Ensure that:
 - The card name is creative and thematic.
 - The mana cost reflects the color and power level.
 - The card text is clear, concise, and follows Magic: The Gathering conventions.
 - All elements are consistent with the card's color, type, and rarity.
-- The card is balanced and interesting for gameplay.`;
+- The card is balanced and interesting for gameplay.
+- Do not use any special formatting characters like asterisks or underscores.`;
 
   try {
     const response = await openai.chat.completions.create({
       model: "gpt-4o-mini",
       messages: [
-        { role: "system", content: "You are a Magic: The Gathering card designer with extensive knowledge of the game's rules, mechanics, and design principles." },
+        { role: "system", content: "You are a Magic: The Gathering card designer with extensive knowledge of the game's rules, mechanics, and design principles. Provide card information in plain text without any special formatting." },
         { role: "user", content: prompt }
       ],
       max_tokens: 500,
