@@ -8,7 +8,7 @@ document.addEventListener('DOMContentLoaded', function() {
         cardDisplay.textContent = 'Generating new card...';
 
         try {
-            const response = await fetch('/api/generate-mtg-card');
+            const response = await fetch('https://mtg-card-generator.netlify.app/.netlify/functions/generate-mtg-card');
             const data = await response.json();
             
             if (data.card) {
