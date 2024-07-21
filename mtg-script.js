@@ -3,9 +3,7 @@ document.addEventListener('DOMContentLoaded', function() {
     const cardDisplay = document.getElementById('cardDisplay');
     
     generateButton.addEventListener('click', async function() {
-        generateButton.disabled = true;
-        generateButton.textContent = 'Generating...';
-        cardDisplay.textContent = 'Generating new card...';
+        cardDisplay.textContent = 'Generating...';
 
         try {
             const response = await fetch('https://mtg-card-generator.netlify.app/.netlify/functions/generate-mtg-card');
@@ -14,14 +12,11 @@ document.addEventListener('DOMContentLoaded', function() {
             if (data.card) {
                 cardDisplay.innerHTML = data.card.replace(/\n/g, '<br>');
             } else {
-                cardDisplay.textContent = 'Failed to generate card. Please try again.';
+                cardDisplay.textContent = 'Failed to generate card.';
             }
         } catch (error) {
             console.error('Error:', error);
-            cardDisplay.textContent = 'An error occurred. Please try again.';
-        } finally {
-            generateButton.disabled = false;
-            generateButton.textContent = 'Generate';
+            cardDisplay.textContent = `An error occurred: ${error.message || error}.`;
         }
     });
 });

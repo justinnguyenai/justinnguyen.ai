@@ -15,7 +15,7 @@ def generate_mtg_card():
     7. flavor text
     8. brief review of the card (balance, synergy, playability, etc.)
 
-    Double-check to make sure the card makes sense, is well-designed, and is balanced (not overpowered, not underpowered)."""
+    Double-check to make sure the card makes sense, is well-designed, and is balanced (not overpowered, not underpowered). Remove markdown formatting."""
 
     try:
         response = client.chat.completions.create(
