@@ -36,6 +36,7 @@ async function generateMtgCard() {
   10. flavor text
   11. brief review of the card (balance, synergy, playability, etc.)
 
+  - Everything should be in english.
   - Double-check to make sure the card makes sense.
   - Double-check to make sure the card is well-designed.
   - The mana cost, color, card type, and rarity should all be consistent and reflect the power level and abilities of the card.
