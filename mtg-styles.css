@@ -28,3 +28,19 @@ body.dark-mode .generate-button {
 body.dark-mode .generate-button:hover {
     background-color: #8b5cf6;
 }
+
+.card-display {
+    margin-top: 20px;
+    padding: 20px;
+    background-color: #f0f0f0;
+    border-radius: 8px;
+    white-space: pre-wrap;
+    max-width: 600px;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+body.dark-mode .card-display {
+    background-color: #2a2a2a;
+    color: #e0e0e0;
+}
