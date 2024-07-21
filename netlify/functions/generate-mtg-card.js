@@ -49,7 +49,7 @@ async function generateMtgCard() {
 
   try {
     const response = await openai.chat.completions.create({
-      model: "gpt-4o-mini",
+      model: "gpt-4o",
       messages: [
         { role: "system", content: "You are a creative assistant specialized in generating new Magic: The Gathering cards." },
         { role: "user", content: prompt }
