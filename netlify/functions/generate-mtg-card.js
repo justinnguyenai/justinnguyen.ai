@@ -48,7 +48,7 @@ async function generateMtgCard() {
 Please provide the following information in a structured format WITHOUT any Markdown formatting:
 
 Card Name:
-Mana Cost:
+Mana Cost: (Use {W} for White, {U} for Blue, {B} for Black, {R} for Red, {G} for Green, 0 if mana cost is 0, {5} for 5 colorless for example)
 Card Type:
 Card Text:${additionalAttribute ? '\n' + additionalAttribute : ''}
 Flavor Text:
