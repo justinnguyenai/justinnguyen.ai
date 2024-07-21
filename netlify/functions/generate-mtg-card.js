@@ -46,13 +46,13 @@ async function generateMtgCard() {
 
 1. Card Type: ${cardType}
 2. Rarity: ${cardRarity}
-3. Mana Cost: ${randomManaCost}
+3. Total Mana Value: ${randomManaCost}
 4. Color: ${cardColor}
 
 Please provide the following information in a structured format WITHOUT any Markdown formatting:
 
 Card Name:
-Mana Cost: (Use {W} for White, {U} for Blue, {B} for Black, {R} for Red, {G} for Green, {C} for Colorless, {0} for land cards)
+Mana Cost: (Use {W} for White, {U} for Blue, {B} for Black, {R} for Red, {G} for Green, {C} for Colorless. Ensure the mana cost reflects the card's color and total mana value.)
 Card Type:
 Rarity:
 Card Text:${additionalAttribute ? '\n' + additionalAttribute : ''}
@@ -62,8 +62,12 @@ Brief Review: (<6 sentences on balance, synergy, playability, etc.)
 
 Ensure that:
 - The card name is creative and thematic.
-- The mana cost reflects the color and power level. For lands and colorless cards, there should be no colored mana symbols in the cost.
-- If the card is multicolored, include at least two different colors in its mana cost.
+- The mana cost accurately reflects the specified color and total mana value:
+  * For colorless cards (including artifacts), use only {C} or generic mana symbols.
+  * For colored cards, include at least one mana symbol of the specified color.
+  * For multicolored cards, include at least two different color symbols.
+  * The sum of all mana symbols should equal the specified total mana value.
+  * Lands should have no mana cost.
 - The card text is clear, concise, and follows Magic: The Gathering conventions.
 - All elements are consistent with the card's color, type, and rarity.
 - The card is balanced and interesting for gameplay.
