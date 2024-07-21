@@ -5,22 +5,27 @@ const openai = new OpenAI({
 });
 
 async function generateMtgCard() {
-  // Generate a random number between 0 and 3 (inclusive) for rarity
-  const randomRarityNumber = Math.floor(Math.random() * 4);
-  const rarities = ['common', 'uncommon', 'rare', 'mythic rare'];
-  const cardRarity = rarities[randomRarityNumber];
-
   // Generate a random number between 0 and 7 (inclusive) for card type
   const randomTypeNumber = Math.floor(Math.random() * 8);
   const cardTypes = ['land', 'creature', 'artifact', 'enchantment', 'planeswalker', 'battle', 'instant', 'sorcery'];
   const cardType = cardTypes[randomTypeNumber];
+
+ // Set rarity based on card type
+ let cardRarity;
+ if (cardType === 'planeswalker') {
+   cardRarity = 'mythic rare';
+ } else {
+   const randomRarityNumber = Math.floor(Math.random() * 3);
+   const rarities = ['uncommon', 'rare', 'mythic rare'];
+   cardRarity = rarities[randomRarityNumber];
+ }
 
   // Generate mana cost based on card type
   const randomManaCost = cardType === 'land' ? 0 : Math.floor(Math.random() * 10) + 1;
 
   // Generate color based on mana cost
   let cardColor;
-  if (randomManaCost === 0 || cardType === 'artifact') {
+  if (cardType === 'land' || cardType === 'artifact') {
     cardColor = 'colorless';
   } else if (randomManaCost >= 2) {
     const colors = ['white', 'blue', 'black', 'red', 'green', 'multicolored'];
@@ -35,21 +40,21 @@ async function generateMtgCard() {
     planeswalker: 'Loyalty:',
     battle: 'Defense:'
   };
-
   const additionalAttribute = cardTypeAttributes[cardType] || '';
 
   const prompt = `Generate a new Magic: The Gathering card with the following specifications:
 
-1. Mana Cost: ${randomManaCost}
-2. Color: ${cardColor}
-3. Card Type: ${cardType}
-4. Rarity: ${cardRarity}
+1. Card Type: ${cardType}
+2. Rarity: ${cardRarity}
+3. Mana Cost: ${randomManaCost}
+4. Color: ${cardColor}
 
 Please provide the following information in a structured format WITHOUT any Markdown formatting:
 
 Card Name:
-Mana Cost: (Use {W} for White, {U} for Blue, {B} for Black, {R} for Red, {G} for Green, 0 if mana cost is 0, {5} for 5 colorless for example)
+Mana Cost: (Use {W} for White, {U} for Blue, {B} for Black, {R} for Red, {G} for Green, {C} for Colorless, {0} for land cards)
 Card Type:
+Rarity:
 Card Text:${additionalAttribute ? '\n' + additionalAttribute : ''}
 Flavor Text:
 ---
@@ -62,8 +67,8 @@ Ensure that:
 - The card text is clear, concise, and follows Magic: The Gathering conventions.
 - All elements are consistent with the card's color, type, and rarity.
 - The card is balanced and interesting for gameplay.
-- Do not use any special formatting characters like asterisks or underscores.
 - Only include Power/Toughness for creatures, Loyalty for planeswalkers, and Defense for battles.
+- Do not use any special formatting characters like asterisks or underscores.
 - Do not include empty lines.
 - Include the '---' separator exactly as shown above to divide the flavor text from the brief review.`;
 
