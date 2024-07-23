@@ -5,12 +5,10 @@ const openai = new OpenAI({
 });
 
 async function generateMtgCard() {
-  // Generate a random number between 0 and 7 (inclusive) for card type
   const randomTypeNumber = Math.floor(Math.random() * 8);
   const cardTypes = ['land', 'creature', 'artifact', 'enchantment', 'planeswalker', 'battle', 'instant', 'sorcery'];
   const cardType = cardTypes[randomTypeNumber];
 
- // Set rarity based on card type
  let cardRarity;
  if (cardType === 'planeswalker') {
    cardRarity = 'mythic rare';
@@ -20,10 +18,8 @@ async function generateMtgCard() {
    cardRarity = rarities[randomRarityNumber];
  }
 
-  // Generate mana cost based on card type
-  const randomManaCost = cardType === 'land' ? 0 : Math.floor(Math.random() * 10) + 1;
+  const randomManaCost = cardType === 'land' ? 0 : Math.floor(Math.random() * 8) + 1;
 
-  // Generate color based on mana cost
   let cardColor;
   if (cardType === 'land' || cardType === 'artifact') {
     cardColor = 'colorless';
@@ -58,12 +54,12 @@ Rarity:
 Card Text:${additionalAttribute ? '\n' + additionalAttribute : ''}
 Flavor Text:
 ---
-Brief Review: (<6 sentences on balance, synergy, playability, etc.)
+Brief Review: (5 sentences or less on balance, synergy, playability, etc.)
 
 Ensure that:
 - The card name is creative and thematic.
 - The mana cost accurately reflects the specified color and total mana value:
-  * For colorless cards (including artifacts), use only {C} or generic mana symbols.
+  * For colorless cards (including artifacts), use only {1} or generic mana symbols.
   * For colored cards, include at least one mana symbol of the specified color.
   * For multicolored cards, include at least two different color symbols.
   * The sum of all mana symbols should equal the specified total mana value.
