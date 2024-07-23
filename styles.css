@@ -98,6 +98,9 @@ h2 {
     border-radius: 8px;
     overflow: hidden;
     box-shadow: 0 3px 6px rgba(0,0,0,0.3);
+    display: flex;
+    flex-direction: column;
+    height: 100%;
 }
 
 .project-card img {
@@ -106,8 +109,15 @@ h2 {
     object-fit: contain;
 }
 
+.project-card-content {
+    display: flex;
+    flex-direction: column;
+    flex-grow: 1;
+    padding: 1rem;
+}
+
 .project-card h3, .project-card p {
-    margin: 0.5rem 1rem;
+    margin: 0 0 0.5rem 0;
 }
 
 .view-project {
@@ -115,10 +125,13 @@ h2 {
     color: white;
     border: none;
     padding: 0.5rem 1rem;
-    margin: 1rem;
     border-radius: 4px;
     cursor: pointer;
     font-size: 0.9rem;
+    text-align: center;
+    text-decoration: none;
+    margin-top: auto;
+    align-self: flex-start;
 }
 
 .view-project:hover {
