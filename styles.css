@@ -143,6 +143,16 @@ h2 {
     padding: 0;
 }
 
+#contact-me a {
+    color: #7c3aed; /* Purple color, you can adjust this */
+    text-decoration: none; /* Removes the underline */
+}
+
+#contact-me a:hover {
+    color: #9f67ff; /* Lighter purple on hover, adjust as needed */
+    text-decoration: underline; /* Adds underline on hover */
+}
+
 #contact-me li {
     display: flex;
     align-items: center;
@@ -217,6 +227,14 @@ body.dark-mode header,
 body.dark-mode section {
     background-color: #2a2a2a;
     box-shadow: 0 2px 4px rgba(0,0,0,0.2);
+}
+
+body.dark-mode #contact-me a {
+    color: #9f67ff; /* Lighter purple for dark mode */
+}
+
+body.dark-mode #contact-me a:hover {
+    color: #b794f4; /* Even lighter purple on hover in dark mode */
 }
 
 /* Specific styles for project cards in dark mode */
