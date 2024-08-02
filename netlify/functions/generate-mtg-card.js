@@ -83,7 +83,7 @@ Ensure that:
       ],
       max_tokens: 500,
       n: 1,
-      temperature: 1.5,
+      temperature: 1,
     });
 
     return response.choices[0].message.content.trim();
