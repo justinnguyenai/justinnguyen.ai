@@ -1,3 +1,4 @@
+/* General Styles */
 body {
     font-family: 'Roboto', sans-serif;
     line-height: 1.6;
@@ -14,6 +15,7 @@ body {
     padding: 1rem;
 }
 
+/* Header Styles */
 header {
     background-color: white;
     box-shadow: 0 2px 4px rgba(0,0,0,0.1);
@@ -52,6 +54,17 @@ header .container {
     line-height: 1.2;
 }
 
+.profile-link {
+    display: inline-block;
+    line-height: 0;
+}
+
+.profile-link:hover {
+    opacity: 0.8;
+    transition: opacity 0.3s ease;
+}
+
+/* Main Content Styles */
 main {
     display: flex;
     gap: 1rem;
@@ -66,12 +79,12 @@ main {
     margin-bottom: 0;
 }
 
-aside section:last-child {
-    margin-bottom: 0;
-}
-
 aside {
     flex: 1;
+}
+
+aside section:last-child {
+    margin-bottom: 0;
 }
 
 section {
@@ -87,6 +100,7 @@ h2 {
     color: #333;
 }
 
+/* Project Grid Styles */
 .project-grid {
     display: grid;
     grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
@@ -138,19 +152,20 @@ h2 {
     background-color: #6d28d9;
 }
 
+/* Contact Section Styles */
 #contact-me ul {
     list-style-type: none;
     padding: 0;
 }
 
 #contact-me a {
-    color: #7c3aed; /* Purple color, you can adjust this */
-    text-decoration: none; /* Removes the underline */
+    color: #7c3aed;
+    text-decoration: none;
 }
 
 #contact-me a:hover {
-    color: #9f67ff; /* Lighter purple on hover, adjust as needed */
-    text-decoration: underline; /* Adds underline on hover */
+    color: #9f67ff;
+    text-decoration: underline;
 }
 
 #contact-me li {
@@ -166,6 +181,7 @@ h2 {
     fill: #7c3aed;
 }
 
+/* Skills Section Styles */
 .skill {
     margin-bottom: 1rem;
 }
@@ -199,7 +215,7 @@ h2 {
     border-radius: 4px;
 }
 
-/* Dark mode toggle styles */
+/* Dark Mode Toggle Styles */
 .dark-mode-toggle {
     background: none;
     border: none;
@@ -217,7 +233,7 @@ h2 {
     transition: color 0.3s ease;
 }
 
-/* General dark mode styles */
+/* Dark Mode Styles */
 body.dark-mode {
     background-color: #1a1a1a;
     color: #e0e0e0;
@@ -230,14 +246,13 @@ body.dark-mode section {
 }
 
 body.dark-mode #contact-me a {
-    color: #9f67ff; /* Lighter purple for dark mode */
+    color: #9f67ff;
 }
 
 body.dark-mode #contact-me a:hover {
-    color: #b794f4; /* Even lighter purple on hover in dark mode */
+    color: #b794f4;
 }
 
-/* Specific styles for project cards in dark mode */
 body.dark-mode .project-card {
     background-color: #2a2a2a;
     box-shadow: 0 3px 6px rgba(0, 0, 0, 0.7);
@@ -271,6 +286,7 @@ body.dark-mode .dark-mode-toggle svg {
     color: #e0e0e0;
 }
 
+/* Responsive Styles */
 @media (max-width: 768px) {
     main {
         flex-direction: column;
@@ -305,14 +321,4 @@ body.dark-mode .dark-mode-toggle svg {
         top: 2rem;
         right: 2rem;
     }
-}
-
-.profile-link {
-    display: inline-block;
-    line-height: 0;  /* This removes any extra space below the image */
-}
-
-.profile-link:hover {
-    opacity: 0.8;  /* This adds a subtle hover effect */
-    transition: opacity 0.3s ease;
 }
