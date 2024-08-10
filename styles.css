@@ -144,13 +144,13 @@ h2 {
 }
 
 #contact-me a {
-    color: #7c3aed; /* Purple color, you can adjust this */
-    text-decoration: none; /* Removes the underline */
+    color: #7c3aed;
+    text-decoration: none;
 }
 
 #contact-me a:hover {
-    color: #9f67ff; /* Lighter purple on hover, adjust as needed */
-    text-decoration: underline; /* Adds underline on hover */
+    color: #9f67ff;
+    text-decoration: underline;
 }
 
 #contact-me li {
@@ -230,14 +230,13 @@ body.dark-mode section {
 }
 
 body.dark-mode #contact-me a {
-    color: #9f67ff; /* Lighter purple for dark mode */
+    color: #9f67ff;
 }
 
 body.dark-mode #contact-me a:hover {
-    color: #b794f4; /* Even lighter purple on hover in dark mode */
+    color: #b794f4;
 }
 
-/* Specific styles for project cards in dark mode */
 body.dark-mode .project-card {
     background-color: #2a2a2a;
     box-shadow: 0 3px 6px rgba(0, 0, 0, 0.7);
@@ -309,10 +308,10 @@ body.dark-mode .dark-mode-toggle svg {
 
 .profile-link {
     display: inline-block;
-    line-height: 0;  /* This removes any extra space below the image */
+    line-height: 0;
 }
 
 .profile-link:hover {
-    opacity: 0.8;  /* This adds a subtle hover effect */
+    opacity: 0.8;
     transition: opacity 0.3s ease;
 }
