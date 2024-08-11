@@ -10,7 +10,7 @@ let colorCount = 8;
 let rMax = 0.4;
 let forceFactor = 1;
 let dt = 0.02;
-let frictionHalfLife = 0.04;
+let frictionHalfLife = 0.02;
 let frictionFactor = Math.pow(0.5, dt / frictionHalfLife);
 
 let colors, positionsX, positionsY, velocitiesX, velocitiesY;
@@ -129,10 +129,10 @@ function reset() {
 function toggleMusic() {
     if (music.paused) {
         music.play();
-        musicToggle.textContent = 'Music Off';
+        musicToggle.textContent = 'Music = On';
     } else {
         music.pause();
-        musicToggle.textContent = 'Music On';
+        musicToggle.textContent = 'Music = Off';
     }
 }
 
@@ -147,5 +147,5 @@ resizeCanvas();
 reset();
 loop();
 
-// Set initial volume
-music.volume = volumeSlider.value;
+music.volume = 0.2;
+volumeSlider.value = 0.2;
