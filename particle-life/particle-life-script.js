@@ -109,11 +109,16 @@ function drawParticles() {
 }
 
 function resizeCanvas() {
+    const header = document.querySelector('.container');
+    const headerHeight = header ? header.offsetHeight : 0;
+    
     width = window.innerWidth;
-    height = window.innerHeight;
+    height = window.innerHeight - headerHeight;
+    
     canvas.width = width;
     canvas.height = height;
 }
+
 
 function loop() {
     updateParticles();
