@@ -1,5 +1,8 @@
 const canvas = document.getElementById('canvas');
 const ctx = canvas.getContext('2d');
+const music = document.getElementById('music');
+const musicToggle = document.getElementById('musicToggle');
+const volumeSlider = document.getElementById('volumeSlider');
 
 let width, height;
 let particleCount = 2000;
@@ -62,7 +65,6 @@ function updateParticles() {
             let rx = positionsX[j] - positionsX[i];
             let ry = positionsY[j] - positionsY[i];
 
-            // Account for wrapped distances
             rx = wrap(rx);
             ry = wrap(ry);
 
@@ -87,7 +89,6 @@ function updateParticles() {
         positionsX[i] += velocitiesX[i] * dt;
         positionsY[i] += velocitiesY[i] * dt;
 
-        // Wrap around edges
         positionsX[i] = wrap(positionsX[i]);
         positionsY[i] = wrap(positionsY[i]);
     }
@@ -125,18 +126,26 @@ function reset() {
     initializeAttractionMatrix();
 }
 
+function toggleMusic() {
+    if (music.paused) {
+        music.play();
+        musicToggle.textContent = 'Music Off';
+    } else {
+        music.pause();
+        musicToggle.textContent = 'Music On';
+    }
+}
+
 window.addEventListener('resize', resizeCanvas);
 document.getElementById('resetBtn').addEventListener('click', reset);
-document.getElementById('particleCount').addEventListener('input', (e) => {
-    particleCount = parseInt(e.target.value);
-    document.getElementById('particleCountValue').textContent = particleCount;
-    reset();
-});
-document.getElementById('forceFactor').addEventListener('input', (e) => {
-    forceFactor = parseFloat(e.target.value);
-    document.getElementById('forceFactorValue').textContent = forceFactor.toFixed(1);
+musicToggle.addEventListener('click', toggleMusic);
+volumeSlider.addEventListener('input', (e) => {
+    music.volume = e.target.value;
 });
 
 resizeCanvas();
 reset();
 loop();
+
+// Set initial volume
+music.volume = volumeSlider.value;
