@@ -17,7 +17,6 @@ body {
 header {
     background-color: white;
     box-shadow: 0 2px 4px rgba(0,0,0,0.1);
-    padding: 1rem 0;
 }
 
 header .container {
@@ -216,7 +215,6 @@ h2 {
     width: 36px;
     height: 36px;
     color: #333;
-    transition: color 0.3s ease;
 }
 
 /* General dark mode styles */
@@ -315,5 +313,4 @@ body.dark-mode .dark-mode-toggle svg {
 
 .profile-link:hover {
     opacity: 0.8;
-    transition: opacity 0.3s ease;
 }
