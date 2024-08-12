@@ -29,11 +29,7 @@ body {
 
 #controls > * {
     margin-bottom: 10px;
-}
-
-#controls label {
-    display: inline-block;
-    margin-right: 5px;
+    gap:10px;
 }
 
 #controls div {
@@ -57,12 +53,11 @@ body {
 
 #controls label {
     display: inline-block;
-    margin-right: 10px;
     font-size: 1rem;
 }
 
 #volumeSlider {
-    width: 100%;
+    width: 143px;
     margin-top: 5px;
     appearance: none;
     height: 5px;
