@@ -152,5 +152,5 @@ resizeCanvas();
 reset();
 loop();
 
-music.volume = 0.2;
-volumeSlider.value = 0.2;
+music.volume = 0.25;
+volumeSlider.value = 0.25;
