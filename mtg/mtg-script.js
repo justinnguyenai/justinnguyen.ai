@@ -16,7 +16,7 @@ document.addEventListener('DOMContentLoaded', function() {
             }
         } catch (error) {
             console.error('Error:', error);
-            cardDisplay.textContent = `An error occurred: ${error.message || error}. Please try again.`;
+            cardDisplay.textContent = `An error occurred:\n${error.message || error}\nPlease try again.`;
         }
     });
 });
