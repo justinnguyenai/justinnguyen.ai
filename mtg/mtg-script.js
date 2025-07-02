@@ -3,6 +3,7 @@ document.addEventListener('DOMContentLoaded', function() {
     const cardDisplay = document.getElementById('cardDisplay');
     
     generateButton.addEventListener('click', async function() {
+        cardDisplay.classList.add('show');
         cardDisplay.textContent = 'Generating...';
 
         try {

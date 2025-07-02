@@ -76,7 +76,7 @@ Ensure that:
 
   try {
     const response = await openai.chat.completions.create({
-      model: "gpt-4o-mini",
+      model: "gpt-4.1-mini",
       messages: [
         { role: "system", content: "You are a Magic: The Gathering card designer with extensive knowledge of the game's rules, mechanics, and design principles. Provide card information in plain text without any special formatting." },
         { role: "user", content: prompt }
