@@ -1,28 +1,280 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
+    <!-- Meta tags for character encoding and responsive design -->
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    
+    <!-- Page title that appears in browser tab -->
     <title>Justin Nguyen - MTG Card Generator AI</title>
+    
+    <!-- Favicon - small icon that appears in browser tab -->
     <link rel="icon" href="../images/favicon3-32x32.png" type="image/x-icon">
-    <link rel="stylesheet" href="../styles.css">
-    <link rel="stylesheet" href="mtg-styles.css">
+    
+    <!-- Google Fonts - Roboto font family for clean, modern typography -->
     <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap" rel="stylesheet">
+    
+    <!-- Embedded CSS Styles -->
+    <style>
+        /* ================================
+           SHARED STYLES FROM MAIN SITE
+           These styles maintain consistency with the main portfolio
+           ================================ */
+        
+        /* Body styles - sets the foundation for the entire page */
+        body {
+            font-family: 'Roboto', sans-serif;  /* Use Roboto font with sans-serif fallback */
+            line-height: 1.6;                    /* Spacing between lines for readability */
+            color: #333;                         /* Dark gray text color */
+            background-color: #e2e7ec;           /* Light gray background */
+            margin: 0;                           /* Remove default browser margins */
+            padding: 0;                          /* Remove default browser padding */
+        }
+
+        /* Container class - centers content and adds responsive width */
+        .container {
+            width: 90%;                          /* Use 90% of viewport width */
+            max-width: 1200px;                   /* Don't exceed 1200px on large screens */
+            margin: 0 auto;                      /* Center horizontally */
+            padding: 1rem;                       /* Add internal spacing */
+        }
+
+        /* ================================
+           HEADER SECTION
+           Maintains consistency with main site header
+           ================================ */
+        
+        /* Header background and shadow for depth */
+        header {
+            background-color: white;             /* White background */
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1); /* Subtle shadow for depth */
+        }
+
+        /* Header container - flexbox for horizontal layout */
+        header .container {
+            position: relative;                  /* Allows absolute positioning of children */
+            display: flex;                       /* Use flexbox layout */
+            align-items: center;                 /* Vertically center items */
+            justify-content: flex-start;         /* Align items to the left */
+        }
+
+        /* Profile picture styling - circular image */
+        .profile-picture {
+            width: 100px;                        /* Fixed width */
+            height: 100px;                       /* Fixed height (square) */
+            border-radius: 50%;                  /* Make it circular */
+            margin-right: 1rem;                  /* Space between picture and text */
+        }
+
+        /* Header text container */
+        .header-text {
+            flex-grow: 1;                        /* Take up remaining space */
+        }
+
+        /* Main heading in header */
+        .header-text h1 {
+            margin: 0;                           /* Remove default margin */
+            font-size: 2.0rem;                   /* Large font size */
+            color: #333;                         /* Dark gray color */
+            line-height: 1.2;                    /* Tighter line spacing for headings */
+        }
+
+        /* Subtitle in header */
+        .header-text p {
+            margin: 0;                           /* Remove default margin */
+            font-size: 1.2rem;                   /* Slightly larger than body text */
+            color: #666;                         /* Medium gray color */
+            line-height: 1.2;                    /* Tighter line spacing */
+        }
+
+        /* Profile link styling */
+        .profile-link {
+            display: inline-block;               /* Inline block for proper sizing */
+            line-height: 0;                      /* Remove line height to prevent extra space */
+        }
+
+        /* Profile link hover effect */
+        .profile-link:hover {
+            opacity: 0.8;                        /* Slightly transparent on hover */
+        }
+
+        /* ================================
+           DARK MODE TOGGLE
+           Button to switch between light and dark themes
+           ================================ */
+        
+        /* Dark mode toggle button */
+        .dark-mode-toggle {
+            background: none;                    /* No background */
+            border: none;                        /* No border */
+            cursor: pointer;                     /* Hand cursor on hover */
+            padding: 0;                          /* No padding */
+            position: absolute;                  /* Position absolutely */
+            top: 2rem;                           /* Distance from top */
+            right: 2rem;                         /* Distance from right */
+        }
+
+        /* Dark mode toggle icon size */
+        .dark-mode-toggle svg {
+            width: 36px;                         /* Fixed width */
+            height: 36px;                        /* Fixed height */
+            color: #333;                         /* Dark gray color */
+        }
+
+        /* ================================
+           MTG CARD GENERATOR SPECIFIC STYLES
+           Styles unique to this project
+           ================================ */
+        
+        /* Main content container for MTG generator */
+        .mtg-content {
+            display: flex;                       /* Use flexbox layout */
+            flex-direction: column;              /* Stack items vertically */
+            align-items: center;                 /* Center items horizontally */
+            justify-content: center;             /* Center items vertically */
+            min-height: 60vh;                    /* Minimum height for better centering */
+        }
+
+        /* Generate button styling */
+        .generate-button {
+            background-color: #7c3aed;           /* Purple background */
+            color: white;                        /* White text */
+            border: none;                        /* Remove default border */
+            padding: 0.75rem 1.5rem;             /* Internal spacing */
+            border-radius: 4px;                  /* Slightly rounded corners */
+            cursor: pointer;                     /* Hand cursor on hover */
+            font-size: 1.2rem;                   /* Larger font size */
+            transition: background-color 0.3s;   /* Smooth color transition */
+        }
+
+        /* Generate button hover effect */
+        .generate-button:hover {
+            background-color: #6d28d9;           /* Darker purple on hover */
+        }
+
+        /* Card display container */
+        .card-display {
+            display: none;                       /* Hidden by default */
+            margin-top: 20px;                    /* Space above */
+            padding: 20px;                       /* Internal spacing */
+            background-color: white;             /* White background */
+            border-radius: 8px;                  /* Rounded corners */
+            white-space: pre-wrap;               /* Preserve line breaks and wrap text */
+            max-width: 600px;                    /* Maximum width */
+            margin-left: auto;                   /* Center horizontally */
+            margin-right: auto;                  /* Center horizontally */
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1); /* Subtle shadow for depth */
+            font-family: 'Courier New', monospace; /* Monospace font for card text */
+        }
+
+        /* Show class for card display */
+        .card-display.show {
+            display: block;                      /* Show when class is added */
+        }
+
+        /* ================================
+           DARK MODE STYLES
+           Styles applied when dark mode is active
+           ================================ */
+        
+        /* Dark mode body background and text */
+        body.dark-mode {
+            background-color: #1a1a1a;           /* Very dark gray background */
+            color: #e0e0e0;                      /* Light gray text */
+        }
+
+        /* Dark mode header */
+        body.dark-mode header {
+            background-color: #2a2a2a;           /* Dark gray background */
+            box-shadow: 0 2px 4px rgba(0,0,0,0.2); /* Slightly stronger shadow */
+        }
+
+        /* Dark mode headings */
+        body.dark-mode h1 {
+            color: #e0e0e0;                      /* Light gray color */
+        }
+
+        /* Dark mode subtitle */
+        body.dark-mode .header-text p {
+            color: #b0b0b0;                      /* Medium-light gray */
+        }
+
+        /* Dark mode toggle icon color */
+        body.dark-mode .dark-mode-toggle svg {
+            color: #e0e0e0;                      /* Light gray color */
+        }
+
+        /* Dark mode generate button */
+        body.dark-mode .generate-button {
+            background-color: #9f67ff;           /* Light purple background */
+        }
+
+        /* Dark mode generate button hover */
+        body.dark-mode .generate-button:hover {
+            background-color: #8b5cf6;           /* Slightly darker purple on hover */
+        }
+
+        /* Dark mode card display */
+        body.dark-mode .card-display {
+            background-color: #2a2a2a;           /* Dark gray background */
+            color: #e0e0e0;                      /* Light gray text */
+        }
+
+        /* ================================
+           MOBILE RESPONSIVE STYLES
+           Adjustments for screens smaller than 768px
+           ================================ */
+        
+        @media (max-width: 768px) {
+            /* Stack header elements vertically on mobile */
+            header .container {
+                flex-direction: column;          /* Stack vertically */
+                align-items: flex-start;         /* Align to left */
+            }
+
+            /* Adjust profile picture spacing on mobile */
+            .profile-picture {
+                margin-bottom: 0rem;             /* Remove bottom margin */
+            }
+
+            /* Keep dark mode toggle in top-right on mobile */
+            .dark-mode-toggle {
+                top: 2rem;
+                right: 2rem;
+            }
+
+            /* Adjust MTG content padding on mobile */
+            .mtg-content {
+                min-height: 40vh;                /* Smaller minimum height on mobile */
+            }
+        }
+    </style>
 </head>
 <body>
+    <!-- ================================
+         HEADER SECTION
+         Contains profile picture, name, title, and dark mode toggle
+         ================================ -->
     <header>
         <div class="container">
+            <!-- Profile picture link - clicking returns to main portfolio page -->
             <a href="/" class="profile-link">
                 <img src="../images/profilepicture3.jpg" alt="Justin Nguyen" class="profile-picture">
             </a>
+            
+            <!-- Header text with name and title -->
             <div class="header-text">
                 <h1>Justin Nguyen</h1>
                 <p>AI Engineer | Machine Learning Engineer</p>
             </div>
+            
+            <!-- Dark mode toggle button with moon/sun icons -->
             <button id="darkModeToggle" class="dark-mode-toggle">
+                <!-- Moon icon (shown in light mode) -->
                 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-moon">
                     <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path>
                 </svg>
+                <!-- Sun icon (shown in dark mode) -->
                 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-sun" style="display: none;">
                     <circle cx="12" cy="12" r="5"></circle>
                     <line x1="12" y1="1" x2="12" y2="3"></line>
@@ -38,14 +290,159 @@
         </div>
     </header>
 
+    <!-- ================================
+         MAIN CONTENT AREA
+         MTG Card Generator interface
+         ================================ -->
     <div class="container" role="main">
         <div class="mtg-content">
+            <!-- Button to generate a new MTG card -->
             <button id="generateButton" class="generate-button">Generate New MTG Card</button>
+            
+            <!-- Container to display the generated card (hidden by default) -->
             <div id="cardDisplay" class="card-display"></div>
         </div>
     </div>
 
-    <script src="../script.js"></script>
-    <script src="mtg-script.js"></script>
+    <!-- ================================
+         JAVASCRIPT SECTION
+         Dark mode functionality and MTG card generation
+         ================================ -->
+    <script>
+        // ================================
+        // DARK MODE FUNCTIONALITY
+        // Shared with main site for consistency
+        // ================================
+        
+        // Wait for the DOM to fully load before running JavaScript
+        document.addEventListener('DOMContentLoaded', function() {
+            // Log to console for debugging purposes
+            console.log('MTG Card Generator page loaded successfully');
+
+            // Get references to DOM elements we'll be working with
+            const darkModeToggleButton = document.getElementById('darkModeToggle');
+            const bodyElement = document.body;
+            const moonIcon = darkModeToggleButton.querySelector('.feather-moon');
+            const sunIcon = darkModeToggleButton.querySelector('.feather-sun');
+
+            /**
+             * Sets the dark mode state and updates UI accordingly
+             * @param {boolean} isDarkModeEnabled - Whether dark mode should be enabled
+             */
+            function setDarkMode(isDarkModeEnabled) {
+                // Toggle the 'dark-mode' class on the body element
+                if (isDarkModeEnabled) {
+                    bodyElement.classList.add('dark-mode');
+                } else {
+                    bodyElement.classList.remove('dark-mode');
+                }
+                
+                // Show/hide appropriate icons
+                // In dark mode: show sun icon (to switch to light)
+                // In light mode: show moon icon (to switch to dark)
+                moonIcon.style.display = isDarkModeEnabled ? 'none' : 'block';
+                sunIcon.style.display = isDarkModeEnabled ? 'block' : 'none';
+            }
+
+            // Check if user has a saved dark mode preference
+            // localStorage allows us to save data in the browser
+            const savedDarkModePreference = localStorage.getItem('darkMode');
+            if (savedDarkModePreference === 'enabled') {
+                setDarkMode(true);
+            }
+
+            // Handle clicks on the dark mode toggle button
+            darkModeToggleButton.addEventListener('click', function() {
+                // Check current state by looking for the dark-mode class
+                const isDarkModeCurrentlyEnabled = bodyElement.classList.contains('dark-mode');
+                
+                // Toggle to opposite state
+                const newDarkModeState = !isDarkModeCurrentlyEnabled;
+                
+                // Apply the new state
+                setDarkMode(newDarkModeState);
+
+                // Save the user's preference to localStorage
+                localStorage.setItem('darkMode', newDarkModeState ? 'enabled' : 'disabled');
+                
+                // Log the change for debugging purposes
+                console.log('Dark mode toggled to:', newDarkModeState ? 'enabled' : 'disabled');
+            });
+
+            // ================================
+            // MTG CARD GENERATOR FUNCTIONALITY
+            // Handles card generation and API communication
+            // ================================
+            
+            // Get references to MTG-specific elements
+            const generateButton = document.getElementById('generateButton');
+            const cardDisplay = document.getElementById('cardDisplay');
+            
+            /**
+             * Handles the card generation process
+             * Makes an API call to the serverless function and displays the result
+             */
+            async function generateMTGCard() {
+                // Show the card display area and set loading message
+                cardDisplay.classList.add('show');
+                cardDisplay.textContent = 'Generating your unique MTG card...';
+
+                try {
+                    // Make API call to serverless function
+                    // Using relative path so it works on any domain
+                    const response = await fetch('/.netlify/functions/generate-mtg-card');
+                    
+                    // Check if the response was successful
+                    if (!response.ok) {
+                        throw new Error(`Server responded with status: ${response.status}`);
+                    }
+                    
+                    // Parse the JSON response
+                    const data = await response.json();
+                    
+                    // Check if card data was returned
+                    if (data.card) {
+                        // Display the card text, replacing newlines with HTML line breaks
+                        // This preserves the formatting of the MTG card
+                        cardDisplay.innerHTML = data.card.replace(/\n/g, '<br>');
+                    } else {
+                        // Show error message if no card data was returned
+                        cardDisplay.textContent = 'Failed to generate card. Please try again.';
+                    }
+                } catch (error) {
+                    // Handle any errors that occurred during the fetch
+                    console.error('Error generating MTG card:', error);
+                    
+                    // Display user-friendly error message
+                    // Show the actual error message to help with debugging
+                    cardDisplay.innerHTML = `
+                        <strong>An error occurred:</strong><br>
+                        ${error.message || 'Unknown error'}<br><br>
+                        Please check your internet connection and try again.
+                    `;
+                }
+            }
+            
+            // Add click event listener to the generate button
+            generateButton.addEventListener('click', generateMTGCard);
+            
+            // ================================
+            // KEYBOARD SHORTCUTS
+            // Enhance user experience with keyboard controls
+            // ================================
+            
+            // Listen for keyboard events
+            document.addEventListener('keydown', function(event) {
+                // Check if the pressed key is Enter or Space
+                if (event.key === 'Enter' || event.key === ' ') {
+                    // Prevent default behavior (scrolling for space)
+                    event.preventDefault();
+                    
+                    // Trigger card generation
+                    generateMTGCard();
+                }
+            });
+        });
+    </script>
 </body>
 </html>

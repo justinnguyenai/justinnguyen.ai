@@ -1,27 +1,473 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
+    <!-- Meta tags for character encoding and responsive design -->
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    
+    <!-- Page title that appears in browser tab -->
     <title>Justin Nguyen</title>
+    
+    <!-- Favicon - small icon that appears in browser tab -->
     <link rel="icon" href="images/favicon3-32x32.png" type="image/x-icon">
-    <link rel="stylesheet" href="styles.css">
+    
+    <!-- Google Fonts - Roboto font family for clean, modern typography -->
     <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap" rel="stylesheet">
+    
+    <!-- Embedded CSS Styles -->
+    <style>
+        /* ================================
+           BASE STYLES
+           Reset default browser styles and set up base typography
+           ================================ */
+        
+        /* Body styles - sets the foundation for the entire page */
+        body {
+            font-family: 'Roboto', sans-serif;  /* Use Roboto font with sans-serif fallback */
+            line-height: 1.6;                    /* Spacing between lines for readability */
+            color: #333;                         /* Dark gray text color */
+            background-color: #e2e7ec;           /* Light gray background */
+            margin: 0;                           /* Remove default browser margins */
+            padding: 0;                          /* Remove default browser padding */
+        }
+
+        /* Container class - centers content and adds responsive width */
+        .container {
+            width: 90%;                          /* Use 90% of viewport width */
+            max-width: 1200px;                   /* Don't exceed 1200px on large screens */
+            margin: 0 auto;                      /* Center horizontally */
+            padding: 1rem;                       /* Add internal spacing */
+        }
+
+        /* ================================
+           HEADER SECTION
+           Top navigation bar with profile picture and name
+           ================================ */
+        
+        /* Header background and shadow for depth */
+        header {
+            background-color: white;             /* White background */
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1); /* Subtle shadow for depth */
+        }
+
+        /* Header container - flexbox for horizontal layout */
+        header .container {
+            position: relative;                  /* Allows absolute positioning of children */
+            display: flex;                       /* Use flexbox layout */
+            align-items: center;                 /* Vertically center items */
+            justify-content: flex-start;         /* Align items to the left */
+        }
+
+        /* Profile picture styling - circular image */
+        .profile-picture {
+            width: 100px;                        /* Fixed width */
+            height: 100px;                       /* Fixed height (square) */
+            border-radius: 50%;                  /* Make it circular */
+            margin-right: 1rem;                  /* Space between picture and text */
+        }
+
+        /* Header text container */
+        .header-text {
+            flex-grow: 1;                        /* Take up remaining space */
+        }
+
+        /* Main heading in header */
+        .header-text h1 {
+            margin: 0;                           /* Remove default margin */
+            font-size: 2.0rem;                   /* Large font size */
+            color: #333;                         /* Dark gray color */
+            line-height: 1.2;                    /* Tighter line spacing for headings */
+        }
+
+        /* Subtitle in header */
+        .header-text p {
+            margin: 0;                           /* Remove default margin */
+            font-size: 1.2rem;                   /* Slightly larger than body text */
+            color: #666;                         /* Medium gray color */
+            line-height: 1.2;                    /* Tighter line spacing */
+        }
+
+        /* ================================
+           MAIN LAYOUT
+           Two-column layout with main content and sidebar
+           ================================ */
+        
+        /* Main container - flexbox for side-by-side layout */
+        main {
+            display: flex;                       /* Use flexbox layout */
+            gap: 1rem;                           /* Space between columns */
+            margin-top: 1rem;                    /* Space below header */
+        }
+
+        /* Main content column - takes 2/3 of space */
+        .main-content {
+            flex: 2;                             /* Take 2 parts of available space */
+        }
+
+        /* Remove bottom margin from last section in main content */
+        .main-content section:last-child {
+            margin-bottom: 0;
+        }
+
+        /* Sidebar column - takes 1/3 of space */
+        aside {
+            flex: 1;                             /* Take 1 part of available space */
+        }
+
+        /* Remove bottom margin from last section in sidebar */
+        aside section:last-child {
+            margin-bottom: 0;
+        }
+
+        /* ================================
+           SECTION STYLES
+           Common styles for all content sections
+           ================================ */
+        
+        /* Section container - white cards with shadow */
+        section {
+            background-color: white;             /* White background */
+            border-radius: 8px;                  /* Rounded corners */
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1); /* Subtle shadow for depth */
+            padding: 1.5rem;                     /* Internal spacing */
+            margin-bottom: 1rem;                 /* Space between sections */
+        }
+
+        /* Section headings */
+        h2 {
+            margin-top: 0;                       /* Remove top margin */
+            line-height: 1.2;                    /* Tighter line spacing */
+            color: #333;                         /* Dark gray color */
+        }
+
+        /* ================================
+           PROJECT GRID
+           Grid layout for project cards
+           ================================ */
+        
+        /* Project grid container - responsive grid */
+        .project-grid {
+            display: grid;                       /* Use CSS Grid */
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); /* Responsive columns */
+            gap: 1rem;                           /* Space between cards */
+        }
+
+        /* Individual project card */
+        .project-card {
+            background-color: white;             /* White background */
+            border-radius: 8px;                  /* Rounded corners */
+            overflow: hidden;                    /* Hide content that exceeds boundaries */
+            box-shadow: 0 3px 6px rgba(0,0,0,0.3); /* Stronger shadow than sections */
+            display: flex;                       /* Use flexbox */
+            flex-direction: column;              /* Stack content vertically */
+            height: 100%;                        /* Full height of grid cell */
+        }
+
+        /* Project card image */
+        .project-card img {
+            width: 100%;                         /* Full width of card */
+            height: 200px;                       /* Fixed height */
+            object-fit: contain;                 /* Scale image to fit without cropping */
+        }
+
+        /* Project card content container */
+        .project-card-content {
+            display: flex;                       /* Use flexbox */
+            flex-direction: column;              /* Stack content vertically */
+            flex-grow: 1;                        /* Take remaining space */
+            padding: 1rem;                       /* Internal spacing */
+        }
+
+        /* Project card heading and paragraph spacing */
+        .project-card h3, .project-card p {
+            margin: 0 0 0.5rem 0;                /* Bottom margin only */
+        }
+
+        /* View project button */
+        .view-project {
+            background-color: #7c3aed;           /* Purple background */
+            color: white;                        /* White text */
+            border: none;                        /* Remove default border */
+            padding: 0.5rem 1rem;                /* Internal spacing */
+            border-radius: 4px;                  /* Slightly rounded corners */
+            cursor: pointer;                     /* Show hand cursor on hover */
+            font-size: 0.9rem;                   /* Slightly smaller text */
+            text-align: center;                  /* Center text */
+            text-decoration: none;               /* Remove underline */
+            margin-top: auto;                    /* Push to bottom of card */
+            align-self: flex-start;              /* Align to left */
+        }
+
+        /* View project button hover effect */
+        .view-project:hover {
+            background-color: #6d28d9;           /* Darker purple on hover */
+        }
+
+        /* ================================
+           CONTACT SECTION
+           Contact information with icons
+           ================================ */
+        
+        /* Remove default list styling */
+        #contact-me ul {
+            list-style-type: none;               /* Remove bullet points */
+            padding: 0;                          /* Remove default padding */
+        }
+
+        /* Contact links styling */
+        #contact-me a {
+            color: #7c3aed;                      /* Purple color */
+            text-decoration: none;               /* Remove underline */
+        }
+
+        /* Contact links hover effect */
+        #contact-me a:hover {
+            color: #9f67ff;                      /* Lighter purple on hover */
+            text-decoration: underline;          /* Add underline on hover */
+        }
+
+        /* Contact list items - horizontal layout with icon */
+        #contact-me li {
+            display: flex;                       /* Use flexbox */
+            align-items: center;                 /* Vertically center icon and text */
+            margin-bottom: 0.5rem;               /* Space between items */
+        }
+
+        /* Contact icons */
+        .icon {
+            width: 24px;                         /* Fixed width */
+            height: 24px;                        /* Fixed height */
+            margin-right: 0.5rem;                /* Space between icon and text */
+            fill: #7c3aed;                       /* Purple color */
+        }
+
+        /* ================================
+           SKILLS SECTION
+           Skill bars showing proficiency levels
+           ================================ */
+        
+        /* Individual skill container */
+        .skill {
+            margin-bottom: 1rem;                 /* Space between skills */
+        }
+
+        /* Skill header - name and percentage */
+        .skill-header {
+            display: flex;                       /* Use flexbox */
+            justify-content: space-between;      /* Space between name and percentage */
+            align-items: flex-end;               /* Align to bottom */
+            margin-bottom: 0.25rem;              /* Small space before bar */
+        }
+
+        /* Skill name text */
+        .skill-name {
+            color: #333;                         /* Dark gray color */
+            padding-right: 10px;                 /* Space from percentage */
+        }
+
+        /* Skill percentage text */
+        .skill-percentage {
+            font-size: 0.9rem;                   /* Slightly smaller text */
+            color: #666;                         /* Medium gray color */
+        }
+
+        /* Skill bar background */
+        .skill-bar {
+            background-color: #e2e7ec;           /* Light gray background */
+            height: 10px;                        /* Fixed height */
+            border-radius: 4px;                  /* Rounded corners */
+            overflow: hidden;                    /* Hide overflow for clean edges */
+        }
+
+        /* Skill level fill */
+        .skill-level {
+            background-color: #4fd1c5;           /* Teal color */
+            height: 100%;                        /* Full height of container */
+            border-radius: 4px;                  /* Match parent radius */
+        }
+
+        /* ================================
+           DARK MODE TOGGLE
+           Button to switch between light and dark themes
+           ================================ */
+        
+        /* Dark mode toggle button */
+        .dark-mode-toggle {
+            background: none;                    /* No background */
+            border: none;                        /* No border */
+            cursor: pointer;                     /* Hand cursor on hover */
+            padding: 0;                          /* No padding */
+            position: absolute;                  /* Position absolutely */
+            top: 2rem;                           /* Distance from top */
+            right: 2rem;                         /* Distance from right */
+        }
+
+        /* Dark mode toggle icon size */
+        .dark-mode-toggle svg {
+            width: 36px;                         /* Fixed width */
+            height: 36px;                        /* Fixed height */
+            color: #333;                         /* Dark gray color */
+        }
+
+        /* ================================
+           DARK MODE STYLES
+           Styles applied when dark mode is active
+           ================================ */
+        
+        /* Dark mode body background and text */
+        body.dark-mode {
+            background-color: #1a1a1a;           /* Very dark gray background */
+            color: #e0e0e0;                      /* Light gray text */
+        }
+
+        /* Dark mode sections and header */
+        body.dark-mode header,
+        body.dark-mode section {
+            background-color: #2a2a2a;           /* Dark gray background */
+            box-shadow: 0 2px 4px rgba(0,0,0,0.2); /* Slightly stronger shadow */
+        }
+
+        /* Dark mode contact links */
+        body.dark-mode #contact-me a {
+            color: #9f67ff;                      /* Light purple color */
+        }
+
+        /* Dark mode contact links hover */
+        body.dark-mode #contact-me a:hover {
+            color: #b794f4;                      /* Even lighter purple on hover */
+        }
+
+        /* Dark mode project cards */
+        body.dark-mode .project-card {
+            background-color: #2a2a2a;           /* Dark gray background */
+            box-shadow: 0 3px 6px rgba(0, 0, 0, 0.7); /* Stronger shadow */
+        }
+
+        /* Dark mode headings */
+        body.dark-mode h1,
+        body.dark-mode h2,
+        body.dark-mode h3,
+        body.dark-mode .skill-name {
+            color: #e0e0e0;                      /* Light gray color */
+        }
+
+        /* Dark mode subtitle and skill percentage */
+        body.dark-mode .header-text p,
+        body.dark-mode .skill-percentage {
+            color: #b0b0b0;                      /* Medium-light gray */
+        }
+
+        /* Dark mode view project button */
+        body.dark-mode .view-project {
+            background-color: #9f67ff;           /* Light purple background */
+        }
+
+        /* Dark mode view project button hover */
+        body.dark-mode .view-project:hover {
+            background-color: #8b5cf6;           /* Slightly darker purple on hover */
+        }
+
+        /* Dark mode skill bar background */
+        body.dark-mode .skill-bar {
+            background-color: #3a3a3a;           /* Dark gray background */
+        }
+
+        /* Dark mode toggle icon color */
+        body.dark-mode .dark-mode-toggle svg {
+            color: #e0e0e0;                      /* Light gray color */
+        }
+
+        /* ================================
+           MOBILE RESPONSIVE STYLES
+           Adjustments for screens smaller than 768px
+           ================================ */
+        
+        @media (max-width: 768px) {
+            /* Stack main content and sidebar vertically */
+            main {
+                flex-direction: column;          /* Stack vertically instead of side-by-side */
+            }
+
+            /* Full width for both columns on mobile */
+            .main-content, aside {
+                width: 100%;                     /* Full width */
+            }
+
+            /* Adjust spacing for mobile */
+            .main-content {
+                margin-bottom: 0rem;             /* Remove bottom margin */
+            }
+
+            /* Remove top margin from sidebar on mobile */
+            aside {
+                margin-top: 0;
+            }
+
+            /* Remove top margin from first sidebar section */
+            aside section:first-child {
+                margin-top: 0;
+            }
+
+            /* Stack header elements vertically on mobile */
+            header .container {
+                flex-direction: column;          /* Stack vertically */
+                align-items: flex-start;         /* Align to left */
+            }
+
+            /* Adjust profile picture spacing on mobile */
+            .profile-picture {
+                margin-bottom: 0rem;             /* Remove bottom margin */
+            }
+
+            /* Keep dark mode toggle in top-right on mobile */
+            .dark-mode-toggle {
+                top: 2rem;
+                right: 2rem;
+            }
+        }
+
+        /* ================================
+           UTILITY STYLES
+           Additional helper styles
+           ================================ */
+        
+        /* Profile link styling */
+        .profile-link {
+            display: inline-block;               /* Inline block for proper sizing */
+            line-height: 0;                      /* Remove line height to prevent extra space */
+        }
+
+        /* Profile link hover effect */
+        .profile-link:hover {
+            opacity: 0.8;                        /* Slightly transparent on hover */
+        }
+    </style>
 </head>
 <body>
+    <!-- ================================
+         HEADER SECTION
+         Contains profile picture, name, title, and dark mode toggle
+         ================================ -->
     <header>
         <div class="container">
+            <!-- Profile picture link - clicking returns to home page -->
             <a href="/" class="profile-link">
                 <img src="images/profilepicture3.jpg" alt="Justin Nguyen" class="profile-picture">
             </a>
+            
+            <!-- Header text with name and title -->
             <div class="header-text">
                 <h1>Justin Nguyen</h1>
                 <p>AI Engineer | Machine Learning Engineer</p>
             </div>
+            
+            <!-- Dark mode toggle button with moon/sun icons -->
             <button id="darkModeToggle" class="dark-mode-toggle">
+                <!-- Moon icon (shown in light mode) -->
                 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-moon">
                     <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path>
                 </svg>
+                <!-- Sun icon (shown in dark mode) -->
                 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-sun" style="display: none;">
                     <circle cx="12" cy="12" r="5"></circle>
                     <line x1="12" y1="1" x2="12" y2="3"></line>
@@ -37,8 +483,14 @@
         </div>
     </header>
 
+    <!-- ================================
+         MAIN CONTENT AREA
+         Two-column layout with main content and sidebar
+         ================================ -->
     <main class="container">
+        <!-- Left column - main content -->
         <div class="main-content">
+            <!-- About Me Section -->
             <section id="about-me">
                 <h2>About Me</h2>
                 <p>"We do these things not because they are easy, but because we thought they were going to be easy."</p>
@@ -46,9 +498,11 @@
                 <p>Equipped with hands-on experience in deep learning, programming, and data science, I am adept at handling complex problems and implementing innovative solutions. My career goals center around making a significant impact in AI, especially in financial markets, gaming, and large language models. I am constantly exploring new ways to harness this accelerating technology to create positive value and transformative insights.</p>              
             </section>
 
+            <!-- Projects Section -->
             <section id="projects">
                 <h2>Latest Projects</h2>
                 <div class="project-grid">
+                    <!-- Kalshi Trading Bot Project -->
                     <div class="project-card">
                         <img src="images/kalshi.jpg" alt="Kalshi Trading Bot">
                         <div class="project-card-content">
@@ -57,6 +511,8 @@
                             <a href="https://github.com/justinnguyenai/Kalshi-Trading-Bot-AI" class="view-project">View Project</a>
                         </div>
                     </div>
+                    
+                    <!-- Particle Life Project -->
                     <div class="project-card">
                         <img src="images/particle_life.gif" alt="Particle Life">
                         <div class="project-card-content">
@@ -65,6 +521,8 @@
                             <a href="/particle-life/" class="view-project">Play Project</a>
                         </div>
                     </div>
+                    
+                    <!-- MTG Card Generator Project -->
                     <div class="project-card">
                         <img src="images/mtg.jpg" alt="MTG Card Generator">
                         <div class="project-card-content">
@@ -73,6 +531,8 @@
                             <a href="/mtg/" class="view-project">Play Project</a>
                         </div>
                     </div>
+                    
+                    <!-- Tetris AI Project -->
                     <div class="project-card">
                         <img src="images/tetris.gif" alt="Tetris">
                         <div class="project-card-content">
@@ -81,6 +541,8 @@
                             <a href="https://github.com/justinnguyenai/Tetris-AI" class="view-project">View Project</a>
                         </div>
                     </div>
+                    
+                    <!-- Snake AI Project -->
                     <div class="project-card">
                         <img src="images/snake.gif" alt="Snake">
                         <div class="project-card-content">
@@ -89,6 +551,8 @@
                             <a href="https://github.com/justinnguyenai/Snake-AI" class="view-project">View Project</a>
                         </div>
                     </div>
+                    
+                    <!-- Flappy Bird AI Project -->
                     <div class="project-card">
                         <img src="images/flappy_bird.gif" alt="Flappy Bird">
                         <div class="project-card-content">
@@ -101,22 +565,27 @@
             </section>
         </div>
         
+        <!-- Right column - sidebar -->
         <aside>
+            <!-- Contact Information Section -->
             <section id="contact-me">
                 <h2>Contact Me</h2>
                 <ul>
+                    <!-- Email contact -->
                     <li>
                         <svg xmlns="http://www.w3.org/2000/svg" viewbox="0 0 24 24" fill="currentColor" class="icon">
                           <path d="M20 4H4c-1.1 0-1.99.9-1.99 2L2 18c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2zm0 4l-8 5-8-5V6l8 5 8-5v2z"></path>
                         </svg>
                         <a href="mailto:justin@justinnguyen.ai">justin@justinnguyen.ai</a>
-                      </li>
+                    </li>
+                    <!-- GitHub profile -->
                     <li>
                         <svg xmlns="http://www.w3.org/2000/svg" viewbox="0 0 24 24" fill="currentColor" class="icon">
                           <path d="M12 0c-6.626 0-12 5.373-12 12 0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23.957-.266 1.983-.399 3.003-.404 1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576 4.765-1.589 8.199-6.086 8.199-11.386 0-6.627-5.373-12-12-12z"/>
                         </svg>
                         <a href="https://github.com/justinnguyenai" target="_blank" rel="noopener noreferrer">github.com/justinnguyenai</a>
                     </li>
+                    <!-- Location -->
                     <li>
                         <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" class="icon">
                             <path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7zM7 9c0-2.76 2.24-5 5-5s5 2.24 5 5c0 2.88-2.88 7.19-5 9.88C9.92 16.21 7 11.85 7 9z"/>
@@ -127,8 +596,10 @@
                 </ul>
             </section>
 
+            <!-- Technical Skills Section -->
             <section id="skills">
                 <h2>Technical Skills</h2>
+                <!-- Python skill -->
                 <div class="skill">
                     <div class="skill-header">
                         <span class="skill-name">Python</span>
@@ -138,6 +609,7 @@
                         <div class="skill-level" style="width: 90%;"></div>
                     </div>
                 </div>
+                <!-- AI Tools skill -->
                 <div class="skill">
                     <div class="skill-header">
                         <span class="skill-name">ChatGPT, Gemini, Claude</span>
@@ -147,6 +619,7 @@
                         <div class="skill-level" style="width: 80%;"></div>
                     </div>
                 </div>
+                <!-- Deep Learning Frameworks skill -->
                 <div class="skill">
                     <div class="skill-header">
                         <span class="skill-name">TensorFlow/Keras, PyTorch, JAX</span>
@@ -156,6 +629,7 @@
                         <div class="skill-level" style="width: 70%;"></div>
                     </div>
                 </div>
+                <!-- Version Control skill -->
                 <div class="skill">
                     <div class="skill-header">
                         <span class="skill-name">Git, Github</span>
@@ -165,6 +639,7 @@
                         <div class="skill-level" style="width: 60%;"></div>
                     </div>
                 </div>
+                <!-- Data Science Libraries skill -->
                 <div class="skill">
                     <div class="skill-header">
                         <span class="skill-name">NumPy, Pandas, Matplotlib, XGBoost</span>
@@ -174,6 +649,7 @@
                         <div class="skill-level" style="width: 50%;"></div>
                     </div>
                 </div>
+                <!-- Web Development skill -->
                 <div class="skill">
                     <div class="skill-header">
                         <span class="skill-name">HTML/CSS/JavaScript</span>
@@ -183,6 +659,7 @@
                         <div class="skill-level" style="width: 40%;"></div>
                     </div>
                 </div>
+                <!-- Game Development skill -->
                 <div class="skill">
                     <div class="skill-header">
                         <span class="skill-name">Pygame, Godot</span>
@@ -192,6 +669,7 @@
                         <div class="skill-level" style="width: 30%;"></div>
                     </div>
                 </div>
+                <!-- Other Languages skill -->
                 <div class="skill">
                     <div class="skill-header">
                         <span class="skill-name">C, Java, SQL</span>
@@ -203,6 +681,7 @@
                 </div>
             </section>
 
+            <!-- Relevant Coursework Section -->
             <section id="coursework">
                 <h2>Relevant Coursework</h2>
                 <p><b>Stanford University</b>: Sequence Models, Convolutional Neural Networks, Structuring Machine Learning Projects, Improving Deep Neural Networks: Hyperparameter Tuning Regularization and Optimization, Neural Networks and Deep Learning, Unsupervised Learning Recommenders Reinforcement Learning, Advanced Learning Algorithms, Supervised Machine Learning: Regression and Classification, Game Theory</p>
@@ -215,6 +694,82 @@
             </section>
         </aside>
     </main>
-    <script src="script.js"></script>
+
+    <!-- ================================
+         JAVASCRIPT SECTION
+         Dark mode functionality and page initialization
+         ================================ -->
+    <script>
+        // Wait for the DOM to fully load before running JavaScript
+        document.addEventListener('DOMContentLoaded', function() {
+            // Log to console for debugging purposes
+            console.log('Page loaded successfully');
+
+            // ================================
+            // DARK MODE FUNCTIONALITY
+            // Allows users to toggle between light and dark themes
+            // ================================
+            
+            // Get references to DOM elements we'll be working with
+            const darkModeToggleButton = document.getElementById('darkModeToggle');
+            const bodyElement = document.body;
+            const moonIcon = darkModeToggleButton.querySelector('.feather-moon');
+            const sunIcon = darkModeToggleButton.querySelector('.feather-sun');
+
+            /**
+             * Sets the dark mode state and updates UI accordingly
+             * @param {boolean} isDarkModeEnabled - Whether dark mode should be enabled
+             */
+            function setDarkMode(isDarkModeEnabled) {
+                // Toggle the 'dark-mode' class on the body element
+                if (isDarkModeEnabled) {
+                    bodyElement.classList.add('dark-mode');
+                } else {
+                    bodyElement.classList.remove('dark-mode');
+                }
+                
+                // Show/hide appropriate icons
+                // In dark mode: show sun icon (to switch to light)
+                // In light mode: show moon icon (to switch to dark)
+                moonIcon.style.display = isDarkModeEnabled ? 'none' : 'block';
+                sunIcon.style.display = isDarkModeEnabled ? 'block' : 'none';
+            }
+
+            // ================================
+            // LOAD SAVED PREFERENCE
+            // Check if user has a saved dark mode preference
+            // ================================
+            
+            // localStorage allows us to save data in the browser
+            // This persists even after the page is refreshed
+            const savedDarkModePreference = localStorage.getItem('darkMode');
+            if (savedDarkModePreference === 'enabled') {
+                setDarkMode(true);
+            }
+
+            // ================================
+            // TOGGLE BUTTON EVENT LISTENER
+            // Handle clicks on the dark mode toggle button
+            // ================================
+            
+            darkModeToggleButton.addEventListener('click', function() {
+                // Check current state by looking for the dark-mode class
+                const isDarkModeCurrentlyEnabled = bodyElement.classList.contains('dark-mode');
+                
+                // Toggle to opposite state
+                const newDarkModeState = !isDarkModeCurrentlyEnabled;
+                
+                // Apply the new state
+                setDarkMode(newDarkModeState);
+
+                // Save the user's preference to localStorage
+                // This ensures their choice persists across page refreshes
+                localStorage.setItem('darkMode', newDarkModeState ? 'enabled' : 'disabled');
+                
+                // Log the change for debugging purposes
+                console.log('Dark mode toggled to:', newDarkModeState ? 'enabled' : 'disabled');
+            });
+        });
+    </script>
 </body>
 </html>

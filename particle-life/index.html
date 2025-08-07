@@ -1,28 +1,294 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
+    <!-- Meta tags for character encoding and responsive design -->
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    
+    <!-- Page title that appears in browser tab -->
     <title>Justin Nguyen - Particle Life AI</title>
+    
+    <!-- Favicon - small icon that appears in browser tab -->
     <link rel="icon" href="../images/favicon3-32x32.png" type="image/x-icon">
-    <link rel="stylesheet" href="../styles.css">
-    <link rel="stylesheet" href="particle-life-styles.css">
+    
+    <!-- Google Fonts - Roboto font family for clean, modern typography -->
     <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap" rel="stylesheet">
+    
+    <!-- Embedded CSS Styles -->
+    <style>
+        /* ================================
+           BASE STYLES
+           Particle Life has a unique full-screen canvas design
+           ================================ */
+        
+        /* Body styles - full screen canvas with black background */
+        body {
+            margin: 0;                           /* Remove default margins */
+            overflow: hidden;                    /* Prevent scrolling */
+            background-color: #000;              /* Black background for space effect */
+            color: #fff;                         /* White text */
+            font-family: 'Roboto', sans-serif;  /* Consistent font with main site */
+        }
+
+        /* ================================
+           HEADER SECTION
+           Maintains consistency with main site header
+           ================================ */
+        
+        /* Container class - centers content and adds responsive width */
+        .container {
+            width: 90%;                          /* Use 90% of viewport width */
+            max-width: 1200px;                   /* Don't exceed 1200px on large screens */
+            margin: 0 auto;                      /* Center horizontally */
+            padding: 1rem;                       /* Add internal spacing */
+        }
+
+        /* Header background and shadow for depth */
+        header {
+            background-color: white;             /* White background */
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1); /* Subtle shadow for depth */
+            position: relative;                  /* Keep header above canvas */
+            z-index: 10;                         /* Ensure header is above canvas */
+        }
+
+        /* Header container - flexbox for horizontal layout */
+        header .container {
+            position: relative;                  /* Allows absolute positioning of children */
+            display: flex;                       /* Use flexbox layout */
+            align-items: center;                 /* Vertically center items */
+            justify-content: flex-start;         /* Align items to the left */
+        }
+
+        /* Profile picture styling - circular image */
+        .profile-picture {
+            width: 100px;                        /* Fixed width */
+            height: 100px;                       /* Fixed height (square) */
+            border-radius: 50%;                  /* Make it circular */
+            margin-right: 1rem;                  /* Space between picture and text */
+        }
+
+        /* Header text container */
+        .header-text {
+            flex-grow: 1;                        /* Take up remaining space */
+        }
+
+        /* Main heading in header */
+        .header-text h1 {
+            margin: 0;                           /* Remove default margin */
+            font-size: 2.0rem;                   /* Large font size */
+            color: #333;                         /* Dark gray color */
+            line-height: 1.2;                    /* Tighter line spacing for headings */
+        }
+
+        /* Subtitle in header */
+        .header-text p {
+            margin: 0;                           /* Remove default margin */
+            font-size: 1.2rem;                   /* Slightly larger than body text */
+            color: #666;                         /* Medium gray color */
+            line-height: 1.2;                    /* Tighter line spacing */
+        }
+
+        /* Profile link styling */
+        .profile-link {
+            display: inline-block;               /* Inline block for proper sizing */
+            line-height: 0;                      /* Remove line height to prevent extra space */
+        }
+
+        /* Profile link hover effect */
+        .profile-link:hover {
+            opacity: 0.8;                        /* Slightly transparent on hover */
+        }
+
+        /* ================================
+           DARK MODE TOGGLE
+           Button to switch between light and dark themes
+           ================================ */
+        
+        /* Dark mode toggle button */
+        .dark-mode-toggle {
+            background: none;                    /* No background */
+            border: none;                        /* No border */
+            cursor: pointer;                     /* Hand cursor on hover */
+            padding: 0;                          /* No padding */
+            position: absolute;                  /* Position absolutely */
+            top: 2rem;                           /* Distance from top */
+            right: 2rem;                         /* Distance from right */
+        }
+
+        /* Dark mode toggle icon size */
+        .dark-mode-toggle svg {
+            width: 36px;                         /* Fixed width */
+            height: 36px;                        /* Fixed height */
+            color: #333;                         /* Dark gray color */
+        }
+
+        /* ================================
+           CANVAS STYLES
+           Full-screen canvas for particle simulation
+           ================================ */
+        
+        /* Canvas element - fills entire viewport */
+        #canvas {
+            display: block;                      /* Block display */
+            position: absolute;                  /* Absolute positioning */
+            top: 0;                              /* Start from top */
+            left: 0;                             /* Start from left */
+            right: 0;                            /* Extend to right */
+            bottom: 0;                           /* Extend to bottom */
+            z-index: 1;                          /* Below controls but above background */
+        }
+
+        /* ================================
+           CONTROL PANEL
+           Buttons and sliders for simulation control
+           ================================ */
+        
+        /* Controls container - positioned over canvas */
+        #controls {
+            position: absolute;                  /* Position over canvas */
+            top: 10px;                           /* Distance from top */
+            left: 10px;                          /* Distance from left */
+            z-index: 2;                          /* Above canvas */
+            display: flex;                       /* Use flexbox */
+            flex-direction: column;              /* Stack controls vertically */
+            align-items: flex-start;             /* Align to left */
+            padding: 10px;                       /* Internal spacing */
+        }
+
+        /* Space between control groups */
+        #controls > * {
+            margin-bottom: 10px;                 /* Space below each control group */
+            gap: 10px;                           /* Space between buttons */
+        }
+
+        /* Control group container */
+        #controls div {
+            display: flex;                       /* Use flexbox */
+            align-items: center;                 /* Vertically center items */
+        }
+
+        /* Button styling */
+        #controls button {
+            background-color: #7c3aed;           /* Purple background */
+            color: white;                        /* White text */
+            border: none;                        /* Remove default border */
+            padding: 0.5rem 1rem;                /* Internal spacing */
+            border-radius: 4px;                  /* Slightly rounded corners */
+            cursor: pointer;                     /* Hand cursor on hover */
+            font-size: 1rem;                     /* Standard font size */
+            margin-right: 10px;                  /* Space between buttons */
+        }
+
+        /* Button hover effect */
+        #controls button:hover {
+            background-color: #6d28d9;           /* Darker purple on hover */
+        }
+
+        /* Label styling */
+        #controls label {
+            display: inline-block;               /* Inline block display */
+            font-size: 1rem;                     /* Standard font size */
+            margin-right: 10px;                  /* Space before slider */
+        }
+
+        /* Volume slider styling */
+        #volumeSlider {
+            width: 143px;                        /* Fixed width */
+            margin-top: 5px;                     /* Small space above */
+            appearance: none;                    /* Remove default styling */
+            height: 5px;                         /* Thin slider */
+            background: #ffffff;                 /* White background */
+            outline: none;                       /* Remove focus outline */
+            opacity: 0.8;                        /* Slightly transparent */
+            border-radius: 3px;                  /* Rounded edges */
+        }
+
+        /* Volume slider hover effect */
+        #volumeSlider:hover {
+            opacity: 1;                          /* Full opacity on hover */
+        }
+
+        /* ================================
+           DARK MODE STYLES
+           Dark mode doesn't change much for this project
+           ================================ */
+        
+        /* Dark mode header */
+        body.dark-mode header {
+            background-color: #2a2a2a;           /* Dark gray background */
+            box-shadow: 0 2px 4px rgba(0,0,0,0.2); /* Slightly stronger shadow */
+        }
+
+        /* Dark mode headings */
+        body.dark-mode h1 {
+            color: #e0e0e0;                      /* Light gray color */
+        }
+
+        /* Dark mode subtitle */
+        body.dark-mode .header-text p {
+            color: #b0b0b0;                      /* Medium-light gray */
+        }
+
+        /* Dark mode toggle icon color */
+        body.dark-mode .dark-mode-toggle svg {
+            color: #e0e0e0;                      /* Light gray color */
+        }
+
+        /* Dark mode canvas background (always black) */
+        body.dark-mode #canvas {
+            background-color: #000000 !important; /* Keep black background */
+        }
+
+        /* ================================
+           MOBILE RESPONSIVE STYLES
+           Adjustments for screens smaller than 768px
+           ================================ */
+        
+        @media (max-width: 768px) {
+            /* Stack header elements vertically on mobile */
+            header .container {
+                flex-direction: column;          /* Stack vertically */
+                align-items: flex-start;         /* Align to left */
+            }
+
+            /* Adjust profile picture spacing on mobile */
+            .profile-picture {
+                margin-bottom: 0rem;             /* Remove bottom margin */
+            }
+
+            /* Keep dark mode toggle in top-right on mobile */
+            .dark-mode-toggle {
+                top: 2rem;
+                right: 2rem;
+            }
+        }
+    </style>
 </head>
 <body>
+    <!-- ================================
+         HEADER SECTION
+         Contains profile picture, name, title, and dark mode toggle
+         ================================ -->
     <header>
         <div class="container">
+            <!-- Profile picture link - clicking returns to main portfolio page -->
             <a href="/" class="profile-link">
                 <img src="../images/profilepicture3.jpg" alt="Justin Nguyen" class="profile-picture">
             </a>
+            
+            <!-- Header text with name and title -->
             <div class="header-text">
                 <h1>Justin Nguyen</h1>
                 <p>AI Engineer | Machine Learning Engineer</p>
             </div>
+            
+            <!-- Dark mode toggle button with moon/sun icons -->
             <button id="darkModeToggle" class="dark-mode-toggle">
+                <!-- Moon icon (shown in light mode) -->
                 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-moon">
                     <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path>
                 </svg>
+                <!-- Sun icon (shown in dark mode) -->
                 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-sun" style="display: none;">
                     <circle cx="12" cy="12" r="5"></circle>
                     <line x1="12" y1="1" x2="12" y2="3"></line>
@@ -38,26 +304,395 @@
         </div>
     </header>
 
+    <!-- ================================
+         SIMULATION AREA
+         Canvas and controls for particle life simulation
+         ================================ -->
     <div style="position: relative;">
+        <!-- Canvas element where particles are drawn -->
         <canvas id="canvas"></canvas>
+        
+        <!-- Control panel with buttons and sliders -->
         <div id="controls">
+            <!-- Button group for reset and music toggle -->
             <div>
                 <button id="resetBtn">Recreate</button>
                 <button id="musicToggle">Music = Off</button>
             </div>
+            <!-- Volume control slider -->
             <div>
                 <label for="volumeSlider">Volume:</label>
                 <input type="range" id="volumeSlider" min="0" max="0.5" step="0.05" value="0.25">
             </div>
         </div>
     </div>
-        
+    
+    <!-- Audio element for background music -->
     <audio id="music" loop>
         <source src="river.mp3" type="audio/mpeg">
         Your browser does not support the audio element.
     </audio>
 
-    <script src="../script.js"></script>
-    <script src="particle-life-script.js"></script>
+    <!-- ================================
+         JAVASCRIPT SECTION
+         Dark mode functionality and particle life simulation
+         ================================ -->
+    <script>
+        // ================================
+        // DARK MODE FUNCTIONALITY
+        // Shared with main site for consistency
+        // ================================
+        
+        // Wait for the DOM to fully load before running JavaScript
+        document.addEventListener('DOMContentLoaded', function() {
+            // Log to console for debugging purposes
+            console.log('Particle Life simulation loaded successfully');
+
+            // Get references to DOM elements for dark mode
+            const darkModeToggleButton = document.getElementById('darkModeToggle');
+            const bodyElement = document.body;
+            const moonIcon = darkModeToggleButton.querySelector('.feather-moon');
+            const sunIcon = darkModeToggleButton.querySelector('.feather-sun');
+
+            /**
+             * Sets the dark mode state and updates UI accordingly
+             * @param {boolean} isDarkModeEnabled - Whether dark mode should be enabled
+             */
+            function setDarkMode(isDarkModeEnabled) {
+                // Toggle the 'dark-mode' class on the body element
+                if (isDarkModeEnabled) {
+                    bodyElement.classList.add('dark-mode');
+                } else {
+                    bodyElement.classList.remove('dark-mode');
+                }
+                
+                // Show/hide appropriate icons
+                moonIcon.style.display = isDarkModeEnabled ? 'none' : 'block';
+                sunIcon.style.display = isDarkModeEnabled ? 'block' : 'none';
+            }
+
+            // Check if user has a saved dark mode preference
+            const savedDarkModePreference = localStorage.getItem('darkMode');
+            if (savedDarkModePreference === 'enabled') {
+                setDarkMode(true);
+            }
+
+            // Handle clicks on the dark mode toggle button
+            darkModeToggleButton.addEventListener('click', function() {
+                const isDarkModeCurrentlyEnabled = bodyElement.classList.contains('dark-mode');
+                const newDarkModeState = !isDarkModeCurrentlyEnabled;
+                setDarkMode(newDarkModeState);
+                localStorage.setItem('darkMode', newDarkModeState ? 'enabled' : 'disabled');
+                console.log('Dark mode toggled to:', newDarkModeState ? 'enabled' : 'disabled');
+            });
+        });
+
+        // ================================
+        // PARTICLE LIFE SIMULATION
+        // Complex artificial life simulation with emergent behaviors
+        // ================================
+        
+        // Get canvas and 2D rendering context
+        const canvas = document.getElementById('canvas');
+        const canvasContext = canvas.getContext('2d');
+        
+        // Get audio elements for background music
+        const backgroundMusic = document.getElementById('music');
+        const musicToggleButton = document.getElementById('musicToggle');
+        const volumeSliderElement = document.getElementById('volumeSlider');
+
+        // ================================
+        // SIMULATION PARAMETERS
+        // These control the behavior of the particle system
+        // ================================
+        
+        // Canvas dimensions (will be set dynamically)
+        let canvasWidth, canvasHeight;
+        
+        // Particle system parameters
+        const totalParticleCount = 2000;        // Total number of particles in simulation
+        const numberOfColorTypes = 8;           // Number of different particle types (colors)
+        const maximumInteractionRadius = 0.4;   // Maximum distance for particle interactions (normalized)
+        const forceMultiplier = 1;              // Scaling factor for forces
+        const timeStep = 0.02;                  // Time step for physics integration
+        const frictionHalfLife = 0.02;          // Time for velocity to decay by half
+        
+        // Calculate friction factor using exponential decay formula
+        // This creates realistic drag on particle movement
+        const frictionFactor = Math.pow(0.5, timeStep / frictionHalfLife);
+
+        // ================================
+        // PARTICLE DATA ARRAYS
+        // Using typed arrays for performance
+        // ================================
+        
+        // Arrays to store particle properties
+        let particleColors;                      // Color type for each particle (0 to numberOfColorTypes-1)
+        let particlePositionsX;                  // X position of each particle (-1 to 1)
+        let particlePositionsY;                  // Y position of each particle (-1 to 1)
+        let particleVelocitiesX;                 // X velocity of each particle
+        let particleVelocitiesY;                 // Y velocity of each particle
+        let attractionMatrix;                    // Matrix of attraction forces between color types
+
+        /**
+         * Initializes all particle arrays with random values
+         * Creates a new universe of particles
+         */
+        function initializeParticleArrays() {
+            // Create typed arrays for performance
+            particleColors = new Int32Array(totalParticleCount);
+            particlePositionsX = new Float32Array(totalParticleCount);
+            particlePositionsY = new Float32Array(totalParticleCount);
+            particleVelocitiesX = new Float32Array(totalParticleCount);
+            particleVelocitiesY = new Float32Array(totalParticleCount);
+
+            // Initialize each particle with random properties
+            for (let particleIndex = 0; particleIndex < totalParticleCount; particleIndex++) {
+                // Assign random color type
+                particleColors[particleIndex] = Math.floor(Math.random() * numberOfColorTypes);
+                
+                // Random position in normalized space (-1 to 1)
+                particlePositionsX[particleIndex] = Math.random() * 2 - 1;
+                particlePositionsY[particleIndex] = Math.random() * 2 - 1;
+                
+                // Start with zero velocity
+                particleVelocitiesX[particleIndex] = 0;
+                particleVelocitiesY[particleIndex] = 0;
+            }
+        }
+
+        /**
+         * Initializes the attraction matrix with random values
+         * This determines how different color types interact
+         */
+        function initializeAttractionMatrix() {
+            // Create a matrix of size (numberOfColorTypes × numberOfColorTypes)
+            attractionMatrix = new Float32Array(numberOfColorTypes * numberOfColorTypes);
+            
+            // Fill with random values between -1 and 1
+            // Negative values = repulsion, Positive values = attraction
+            for (let matrixIndex = 0; matrixIndex < numberOfColorTypes * numberOfColorTypes; matrixIndex++) {
+                attractionMatrix[matrixIndex] = Math.random() * 2 - 1;
+            }
+        }
+
+        /**
+         * Calculates the force between two particles based on distance
+         * Uses a custom force curve that creates interesting behaviors
+         * @param {number} normalizedDistance - Distance normalized to maximum interaction radius (0 to 1)
+         * @param {number} attractionStrength - Attraction value from matrix (-1 to 1)
+         * @returns {number} Force magnitude (negative = repulsion, positive = attraction)
+         */
+        function calculateForce(normalizedDistance, attractionStrength) {
+            const repulsionZone = 0.3;  // Normalized distance below which particles repel
+            
+            if (normalizedDistance < repulsionZone) {
+                // Close range: linear repulsion to prevent overlap
+                // Force goes from -1 (at distance 0) to 0 (at repulsionZone)
+                return normalizedDistance / repulsionZone - 1;
+            } else if (repulsionZone < normalizedDistance && normalizedDistance < 1) {
+                // Medium range: attraction/repulsion based on matrix value
+                // Creates a smooth bell curve for natural-looking interactions
+                const normalizedRange = (1 - repulsionZone);
+                const peakPosition = (1 + repulsionZone) / 2;
+                const distanceFromPeak = Math.abs(2 * normalizedDistance - peakPosition - repulsionZone);
+                return attractionStrength * (1 - distanceFromPeak / normalizedRange);
+            } else {
+                // Beyond interaction radius: no force
+                return 0;
+            }
+        }
+
+        /**
+         * Wraps a coordinate value to create toroidal topology
+         * Particles that exit one edge appear on the opposite edge
+         * @param {number} coordinateValue - Position value to wrap
+         * @returns {number} Wrapped value between -1 and 1
+         */
+        function wrapCoordinate(coordinateValue) {
+            // This formula handles any value, not just those slightly outside bounds
+            // It creates a seamless toroidal (doughnut-shaped) space
+            return coordinateValue - 2 * Math.floor((coordinateValue + 1) / 2);
+        }
+
+        /**
+         * Updates all particle positions based on forces
+         * This is the main physics engine of the simulation
+         */
+        function updateParticlePhysics() {
+            // Process each particle
+            for (let currentParticle = 0; currentParticle < totalParticleCount; currentParticle++) {
+                // Accumulate forces from all other particles
+                let totalForceX = 0;
+                let totalForceY = 0;
+
+                // Check interaction with every other particle
+                for (let otherParticle = 0; otherParticle < totalParticleCount; otherParticle++) {
+                    // Skip self-interaction
+                    if (otherParticle === currentParticle) continue;
+
+                    // Calculate displacement between particles
+                    let deltaX = particlePositionsX[otherParticle] - particlePositionsX[currentParticle];
+                    let deltaY = particlePositionsY[otherParticle] - particlePositionsY[currentParticle];
+
+                    // Apply toroidal wrapping to find shortest distance
+                    // This ensures particles interact across boundaries
+                    deltaX = wrapCoordinate(deltaX);
+                    deltaY = wrapCoordinate(deltaY);
+
+                    // Calculate distance between particles
+                    const distanceBetweenParticles = Math.sqrt(deltaX * deltaX + deltaY * deltaY);
+
+                    // Only apply force if within interaction radius
+                    if (distanceBetweenParticles > 0 && distanceBetweenParticles < maximumInteractionRadius) {
+                        // Get attraction value from matrix based on color types
+                        const matrixIndex = particleColors[currentParticle] * numberOfColorTypes + particleColors[otherParticle];
+                        const attractionValue = attractionMatrix[matrixIndex];
+                        
+                        // Calculate force magnitude
+                        const forceMagnitude = calculateForce(distanceBetweenParticles / maximumInteractionRadius, attractionValue);
+                        
+                        // Add force contribution (normalized by distance for direction)
+                        totalForceX += (deltaX / distanceBetweenParticles) * forceMagnitude;
+                        totalForceY += (deltaY / distanceBetweenParticles) * forceMagnitude;
+                    }
+                }
+
+                // Scale forces by parameters
+                totalForceX *= maximumInteractionRadius * forceMultiplier;
+                totalForceY *= maximumInteractionRadius * forceMultiplier;
+
+                // Apply friction (velocity damping)
+                particleVelocitiesX[currentParticle] *= frictionFactor;
+                particleVelocitiesY[currentParticle] *= frictionFactor;
+
+                // Apply forces to velocity (F = ma, assuming m = 1)
+                particleVelocitiesX[currentParticle] += totalForceX * timeStep;
+                particleVelocitiesY[currentParticle] += totalForceY * timeStep;
+
+                // Update position based on velocity
+                particlePositionsX[currentParticle] += particleVelocitiesX[currentParticle] * timeStep;
+                particlePositionsY[currentParticle] += particleVelocitiesY[currentParticle] * timeStep;
+
+                // Wrap positions to keep particles in bounds
+                particlePositionsX[currentParticle] = wrapCoordinate(particlePositionsX[currentParticle]);
+                particlePositionsY[currentParticle] = wrapCoordinate(particlePositionsY[currentParticle]);
+            }
+        }
+
+        /**
+         * Renders all particles to the canvas
+         * Converts normalized coordinates to screen coordinates
+         */
+        function renderParticles() {
+            // Clear the entire canvas with black background
+            canvasContext.clearRect(0, 0, canvasWidth, canvasHeight);
+
+            // Draw each particle
+            for (let particleIndex = 0; particleIndex < totalParticleCount; particleIndex++) {
+                // Convert normalized coordinates (-1 to 1) to screen coordinates
+                const screenX = (particlePositionsX[particleIndex] + 1) * 0.5 * canvasWidth;
+                const screenY = (particlePositionsY[particleIndex] + 1) * 0.5 * canvasHeight;
+
+                // Draw particle as a colored circle
+                canvasContext.beginPath();
+                canvasContext.arc(screenX, screenY, 2, 0, 2 * Math.PI);
+                
+                // Set color based on particle type using HSL color space
+                // This creates a rainbow of colors evenly distributed
+                const hueAngle = (360 * particleColors[particleIndex]) / numberOfColorTypes;
+                canvasContext.fillStyle = `hsl(${hueAngle}, 100%, 50%)`;
+                canvasContext.fill();
+            }
+        }
+
+        /**
+         * Resizes the canvas to fill the viewport
+         * Maintains proper scaling when window is resized
+         */
+        function resizeCanvas() {
+            // Get header height to position canvas below it
+            const headerElement = document.querySelector('.container');
+            const headerHeight = headerElement ? headerElement.offsetHeight : 0;
+            
+            // Set canvas dimensions to fill remaining viewport
+            canvasWidth = window.innerWidth;
+            canvasHeight = window.innerHeight - headerHeight;
+            
+            // Update canvas element dimensions
+            canvas.width = canvasWidth;
+            canvas.height = canvasHeight;
+        }
+
+        /**
+         * Main animation loop
+         * Updates physics and renders particles continuously
+         */
+        function animationLoop() {
+            updateParticlePhysics();
+            renderParticles();
+            requestAnimationFrame(animationLoop);  // Schedule next frame
+        }
+
+        /**
+         * Resets the simulation with new random parameters
+         * Creates a completely new particle universe
+         */
+        function resetSimulation() {
+            initializeParticleArrays();
+            initializeAttractionMatrix();
+        }
+
+        /**
+         * Toggles background music on/off
+         * Updates button text to show current state
+         */
+        function toggleBackgroundMusic() {
+            if (backgroundMusic.paused) {
+                backgroundMusic.play();
+                musicToggleButton.textContent = 'Music = On';
+            } else {
+                backgroundMusic.pause();
+                musicToggleButton.textContent = 'Music = Off';
+            }
+        }
+
+        // ================================
+        // EVENT LISTENERS
+        // Set up user interaction handlers
+        // ================================
+        
+        // Handle window resize events
+        window.addEventListener('resize', resizeCanvas);
+        
+        // Handle reset button click
+        document.getElementById('resetBtn').addEventListener('click', resetSimulation);
+        
+        // Handle music toggle button click
+        musicToggleButton.addEventListener('click', toggleBackgroundMusic);
+        
+        // Handle volume slider changes
+        volumeSliderElement.addEventListener('input', (event) => {
+            backgroundMusic.volume = event.target.value;
+        });
+
+        // ================================
+        // INITIALIZATION
+        // Start the simulation
+        // ================================
+        
+        // Set initial canvas size
+        resizeCanvas();
+        
+        // Initialize particle system
+        resetSimulation();
+        
+        // Start animation loop
+        animationLoop();
+
+        // Set initial audio settings
+        backgroundMusic.volume = 0.25;          // Set default volume to 25%
+        volumeSliderElement.value = 0.25;       // Match slider to default volume
+    </script>
 </body>
 </html>
