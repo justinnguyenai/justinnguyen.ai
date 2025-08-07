@@ -9,7 +9,7 @@
     <title>Justin Nguyen - MTG Card Generator AI</title>
     
     <!-- Favicon - small icon that appears in browser tab -->
-    <link rel="icon" href="../images/favicon3-32x32.png" type="image/x-icon">
+    <link rel="icon" href="assets/favicon.png" type="image/x-icon">
     
     <!-- Google Fonts - Roboto font family for clean, modern typography -->
     <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap" rel="stylesheet">
@@ -259,7 +259,7 @@
         <div class="container">
             <!-- Profile picture link - clicking returns to main portfolio page -->
             <a href="/" class="profile-link">
-                <img src="../images/profilepicture3.jpg" alt="Justin Nguyen" class="profile-picture">
+                <img src="assets/profile-picture.jpg" alt="Justin Nguyen" class="profile-picture">
             </a>
             
             <!-- Header text with name and title -->
@@ -390,7 +390,7 @@
                 try {
                     // Make API call to serverless function
                     // Using relative path so it works on any domain
-                    const response = await fetch('/.netlify/functions/generate-mtg-card');
+                    const response = await fetch('/.netlify/functions/generate-magic-card');
                     
                     // Check if the response was successful
                     if (!response.ok) {
