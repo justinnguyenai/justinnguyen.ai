@@ -204,37 +204,6 @@
         }
 
         /* ================================
-           MORE PROJECTS BUTTON
-           Centered button to view all projects
-           ================================ */
-        
-        /* More projects container - centers the button */
-        .more-projects-container {
-            display: flex;                       /* Use flexbox */
-            justify-content: center;             /* Center horizontally */
-            margin-top: 1.5rem;                  /* Space above button */
-        }
-
-        /* More projects button styling */
-        .more-projects-button {
-            background-color: #7c3aed;           /* Purple background */
-            color: white;                        /* White text */
-            border: none;                        /* Remove default border */
-            padding: 0.5rem 1rem;                /* Internal spacing */
-            border-radius: 4px;                  /* Slightly rounded corners */
-            cursor: pointer;                     /* Show hand cursor on hover */
-            font-size: 1rem;                     /* Standard text size */
-            text-align: center;                  /* Center text */
-            text-decoration: none;               /* Remove underline */
-            display: inline-block;               /* Allows padding and margins */
-        }
-
-        /* More projects button hover effect */
-        .more-projects-button:hover {
-            background-color: #6d28d9;           /* Darker purple on hover */
-        }
-
-        /* ================================
            CONTACT SECTION
            Contact information with icons
            ================================ */
@@ -395,16 +364,6 @@
 
         /* Dark mode view project button hover */
         body.dark-mode .view-project:hover {
-            background-color: #8b5cf6;           /* Slightly darker purple on hover */
-        }
-
-        /* Dark mode more projects button */
-        body.dark-mode .more-projects-button {
-            background-color: #9f67ff;           /* Light purple background */
-        }
-
-        /* Dark mode more projects button hover */
-        body.dark-mode .more-projects-button:hover {
             background-color: #8b5cf6;           /* Slightly darker purple on hover */
         }
 
@@ -603,11 +562,15 @@
                         </div>
                     </div>
                     
-                </div>
-                
-                <!-- More Projects Button -->
-                <div class="more-projects-container">
-                    <a href="/projects.html" class="more-projects-button">More Projects</a>
+                    <!-- Flappy Bird AI Project -->
+                    <div class="project-card">
+                        <img src="assets/flappy-bird.gif" alt="Flappy Bird">
+                        <div class="project-card-content">
+                            <h3>Flappy Bird AI</h3>
+                            <p>For my first game AI project, I made an AI to play Flappy Bird using NEAT (NeuroEvolution of Augmenting Topologies). I trained the AI to control when the bird jumps. Inputs include: bird's height, distance to pipe, height of gap. The project features both a human-playable version and an AI-controlled version.</p>
+                            <a href="https://github.com/justinnguyenai/Flappy-Bird-AI" class="view-project">View Project</a>
+                        </div>
+                    </div>
                 </div>
             </section>
         </div>
