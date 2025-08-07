@@ -6,7 +6,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     
     <!-- Page title that appears in browser tab -->
-    <title>Justin Nguyen</title>
+    <title>Justin Nguyen - Projects</title>
     
     <!-- Favicon - small icon that appears in browser tab -->
     <link rel="icon" href="assets/favicon.png" type="image/x-icon">
@@ -89,33 +89,21 @@
 
         /* ================================
            MAIN LAYOUT
-           Two-column layout with main content and sidebar
+           Single-column layout for projects page
            ================================ */
         
-        /* Main container - flexbox for side-by-side layout */
+        /* Main container - single column layout for projects page */
         main {
-            display: flex;                       /* Use flexbox layout */
-            gap: 1rem;                           /* Space between columns */
             margin-top: 1rem;                    /* Space below header */
         }
 
-        /* Main content column - takes 2/3 of space */
+        /* Main content column - full width for projects page */
         .main-content {
-            flex: 2;                             /* Take 2 parts of available space */
+            width: 100%;                         /* Take full width */
         }
 
         /* Remove bottom margin from last section in main content */
         .main-content section:last-child {
-            margin-bottom: 0;
-        }
-
-        /* Sidebar column - takes 1/3 of space */
-        aside {
-            flex: 1;                             /* Take 1 part of available space */
-        }
-
-        /* Remove bottom margin from last section in sidebar */
-        aside section:last-child {
             margin-bottom: 0;
         }
 
@@ -383,29 +371,9 @@
            ================================ */
         
         @media (max-width: 768px) {
-            /* Stack main content and sidebar vertically */
-            main {
-                flex-direction: column;          /* Stack vertically instead of side-by-side */
-            }
-
-            /* Full width for both columns on mobile */
-            .main-content, aside {
-                width: 100%;                     /* Full width */
-            }
-
-            /* Adjust spacing for mobile */
+            /* Mobile layout adjustments */
             .main-content {
-                margin-bottom: 0rem;             /* Remove bottom margin */
-            }
-
-            /* Remove top margin from sidebar on mobile */
-            aside {
-                margin-top: 0;
-            }
-
-            /* Remove top margin from first sidebar section */
-            aside section:first-child {
-                margin-top: 0;
+                width: 100%;                     /* Full width on mobile */
             }
 
             /* Stack header elements vertically on mobile */
@@ -490,78 +458,10 @@
     <main class="container">
         <!-- Left column - main content -->
         <div class="main-content">
-            <!-- About Me Section -->
-            <section id="about-me">
-                <h2>About Me</h2>
-                <p>"We do these things not because they are easy, but because we thought they were going to be easy."</p>
-                <p>Hey, I'm Justin! I'm a passionate and dedicated professional who started my AI learning journey in May 2024. Since then, I've been committed to mastering this exciting field through extensive self-driven coursework and projects. I've completed programs from notable institutions such as Stanford University and OpenAI, utilizing online platforms like Coursera and Kaggle. I hold two Bachelor of Science degrees from the University of California San Diego: Electrical/Computer Engineering and Mathematics/Economics.</p>
-                <p>Equipped with hands-on experience in deep learning, programming, and data science, I am adept at handling complex problems and implementing innovative solutions. My career goals center around making a significant impact in AI, especially in financial markets, gaming, and large language models. I am constantly exploring new ways to harness this accelerating technology to create positive value and transformative insights.</p>              
-            </section>
-
             <!-- Projects Section -->
             <section id="projects">
-                <h2>Latest Projects</h2>
+                <h2>More Projects</h2>
                 <div class="project-grid">
-                    <!-- Coming Soon Project -->
-                    <div class="project-card">
-                        <img src="assets/kalshi.jpg" alt="Coming Soon">
-                        <div class="project-card-content">
-                            <h3>Coming Soon</h3>
-                            <p></p>
-                            <a href="https://github.com/justinnguyenai/Kalshi-Trading-Bot-AI" class="view-project">View Project</a>
-                        </div>
-                    </div>
-                    
-                    <!-- Kalshi Trading Bot Project -->
-                    <div class="project-card">
-                        <img src="assets/kalshi.jpg" alt="Kalshi Trading Bot">
-                        <div class="project-card-content">
-                            <h3>Kalshi Trading Bot AI</h3>
-                            <p>I designed an automated trading bot for Kalshi prediction markets that implements the multi-variable Kelly Criterion to optimize bet sizing across correlated markets. The bot continuously monitors market orderbooks, calculates optimal portfolio allocations considering correlations between events, and dynamically manages limit orders. It features risk management through fractional Kelly sizing, market depth analysis for effective pricing, and automated order execution via the Kalshi API.</p>
-                            <a href="https://github.com/justinnguyenai/Kalshi-Trading-Bot-AI" class="view-project">View Project</a>
-                        </div>
-                    </div>
-                    
-                    <!-- Particle Life Project -->
-                    <div class="project-card">
-                        <img src="assets/particle-life.gif" alt="Particle Life">
-                        <div class="project-card-content">
-                            <h3>Particle Life AI</h3>
-                            <p>I developed an artificial life simulation based on Particle Life where autonomous particles interact based on simple rules of attraction and repulsion. The particles resemble cellular automata and exhibit behaviors such as self-organization and pattern formation. The simulation demonstrates how complexity can emerge from simplicity and is written in JavaScript, allowing users to run it directly in the browser.</p>
-                            <a href="/particle-life.html" class="view-project">Play Project</a>
-                        </div>
-                    </div>
-                    
-                    <!-- MTG Card Generator Project -->
-                    <div class="project-card">
-                        <img src="assets/magic-card-generator.jpg" alt="MTG Card Generator">
-                        <div class="project-card-content">
-                            <h3>MTG Card Generator AI</h3>
-                            <p>In this project, I constructed a Magic: The Gathering card generator. Initially programmed in Python, it was later adapted to JavaScript for integration into my personal website. The script first randomizes attributes such as card type, rarity, mana cost, and color. Then it uses these parameters to dynamically generate a new MTG card.</p>
-                            <a href="/magic-card-generator.html" class="view-project">Play Project</a>
-                        </div>
-                    </div>
-                    
-                    <!-- Tetris AI Project -->
-                    <div class="project-card">
-                        <img src="assets/tetris.gif" alt="Tetris">
-                        <div class="project-card-content">
-                            <h3>Tetris AI</h3>
-                            <p>I built an AI that plays the classic game Tetris using a neural network trained through evolutionary algorithms. The AI considers all possible moves then uses a neural network to evaluate the resulting structure using these input features: lines cleared, maximum height, minimum height, number of holes, bumpiness. Techniques like tournament selection and elitism were used to improve performance.</p>
-                            <a href="https://github.com/justinnguyenai/Tetris-AI" class="view-project">View Project</a>
-                        </div>
-                    </div>
-                    
-                    <!-- Snake AI Project -->
-                    <div class="project-card">
-                        <img src="assets/snake.gif" alt="Snake">
-                        <div class="project-card-content">
-                            <h3>Snake AI</h3>
-                            <p>In my Snake AI project, I created an AI that plays the game Snake using a neural network trained with an evolutionary algorithm. The AI learns to navigate, avoid collisions, and maximize its score by eating food. Inputs include: nearby obstacles, food location, snake direction, snake length.</p>
-                            <a href="https://github.com/justinnguyenai/Snake-AI" class="view-project">View Project</a>
-                        </div>
-                    </div>
-                    
                     <!-- Flappy Bird AI Project -->
                     <div class="project-card">
                         <img src="assets/flappy-bird.gif" alt="Flappy Bird">
@@ -574,141 +474,6 @@
                 </div>
             </section>
         </div>
-        
-        <!-- Right column - sidebar -->
-        <aside>
-            <!-- Contact Information Section -->
-            <section id="contact-me">
-                <h2>Contact Me</h2>
-                <ul>
-                    <!-- Email contact -->
-                    <li>
-                        <svg xmlns="http://www.w3.org/2000/svg" viewbox="0 0 24 24" fill="currentColor" class="icon">
-                          <path d="M20 4H4c-1.1 0-1.99.9-1.99 2L2 18c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2zm0 4l-8 5-8-5V6l8 5 8-5v2z"></path>
-                        </svg>
-                        <a href="mailto:justin@justinnguyen.ai">justin@justinnguyen.ai</a>
-                    </li>
-                    <!-- GitHub profile -->
-                    <li>
-                        <svg xmlns="http://www.w3.org/2000/svg" viewbox="0 0 24 24" fill="currentColor" class="icon">
-                          <path d="M12 0c-6.626 0-12 5.373-12 12 0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23.957-.266 1.983-.399 3.003-.404 1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576 4.765-1.589 8.199-6.086 8.199-11.386 0-6.627-5.373-12-12-12z"/>
-                        </svg>
-                        <a href="https://github.com/justinnguyenai" target="_blank" rel="noopener noreferrer">github.com/justinnguyenai</a>
-                    </li>
-                    <!-- Location -->
-                    <li>
-                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" class="icon">
-                            <path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7zM7 9c0-2.76 2.24-5 5-5s5 2.24 5 5c0 2.88-2.88 7.19-5 9.88C9.92 16.21 7 11.85 7 9z"/>
-                            <circle cx="12" cy="9" r="2.5"/>
-                        </svg>
-                        Silicon Valley, CA
-                    </li>
-                </ul>
-            </section>
-
-            <!-- Technical Skills Section -->
-            <section id="skills">
-                <h2>Technical Skills</h2>
-                <!-- Python skill -->
-                <div class="skill">
-                    <div class="skill-header">
-                        <span class="skill-name">Python</span>
-                        <span class="skill-percentage">90%</span>
-                    </div>
-                    <div class="skill-bar">
-                        <div class="skill-level" style="width: 90%;"></div>
-                    </div>
-                </div>
-                <!-- AI Tools skill -->
-                <div class="skill">
-                    <div class="skill-header">
-                        <span class="skill-name">ChatGPT, Gemini, Claude</span>
-                        <span class="skill-percentage">80%</span>
-                    </div>
-                    <div class="skill-bar">
-                        <div class="skill-level" style="width: 80%;"></div>
-                    </div>
-                </div>
-                <!-- Deep Learning Frameworks skill -->
-                <div class="skill">
-                    <div class="skill-header">
-                        <span class="skill-name">TensorFlow/Keras, PyTorch, JAX</span>
-                        <span class="skill-percentage">70%</span>
-                    </div>
-                    <div class="skill-bar">
-                        <div class="skill-level" style="width: 70%;"></div>
-                    </div>
-                </div>
-                <!-- Version Control skill -->
-                <div class="skill">
-                    <div class="skill-header">
-                        <span class="skill-name">Git, Github</span>
-                        <span class="skill-percentage">60%</span>
-                    </div>
-                    <div class="skill-bar">
-                        <div class="skill-level" style="width: 60%;"></div>
-                    </div>
-                </div>
-                <!-- Data Science Libraries skill -->
-                <div class="skill">
-                    <div class="skill-header">
-                        <span class="skill-name">NumPy, Pandas, Matplotlib, XGBoost</span>
-                        <span class="skill-percentage">50%</span>
-                    </div>
-                    <div class="skill-bar">
-                        <div class="skill-level" style="width: 50%;"></div>
-                    </div>
-                </div>
-                <!-- Web Development skill -->
-                <div class="skill">
-                    <div class="skill-header">
-                        <span class="skill-name">HTML/CSS/JavaScript</span>
-                        <span class="skill-percentage">40%</span>
-                    </div>
-                    <div class="skill-bar">
-                        <div class="skill-level" style="width: 40%;"></div>
-                    </div>
-                </div>
-                <!-- Game Development skill -->
-                <div class="skill">
-                    <div class="skill-header">
-                        <span class="skill-name">Pygame, Godot</span>
-                        <span class="skill-percentage">30%</span>
-                    </div>
-                    <div class="skill-bar">
-                        <div class="skill-level" style="width: 30%;"></div>
-                    </div>
-                </div>
-                <!-- Other Languages skill -->
-                <div class="skill">
-                    <div class="skill-header">
-                        <span class="skill-name">C, Java, SQL</span>
-                        <span class="skill-percentage">20%</span>
-                    </div>
-                    <div class="skill-bar">
-                        <div class="skill-level" style="width: 20%;"></div>
-                    </div>
-                </div>
-            </section>
-
-            <!-- Relevant Coursework Section -->
-            <section id="coursework">
-                <h2>Relevant Coursework</h2>
-                <p><b>Stanford University</b>: Sequence Models, Convolutional Neural Networks, Structuring Machine Learning Projects, Improving Deep Neural Networks: Hyperparameter Tuning Regularization and Optimization, Neural Networks and Deep Learning, Unsupervised Learning Recommenders Reinforcement Learning, Advanced Learning Algorithms, Supervised Machine Learning: Regression and Classification, Game Theory</p>
-                <p><b>DeepLearning.AI</b>: Sequences Time Series and Prediction, How Diffusion Models Work, Build Basic Generative Adversarial Networks, Generative AI for Software Development Specialization, Generative AI for Everyone, AI For Everyone, AI Python for Beginners, Mathematics for Machine Learning and Data Science Specialization</p>
-                <p><b>OpenAI</b>: Building Systems with the ChatGPT API, ChatGPT Prompt Engineering for Developers, Reasoning with o1</p>
-                <p><b>Google</b>: Large Multimodal Model Prompting with Gemini, Pair Programming with a Large Language Model</p>
-                <p><b>Anthropic</b>: MCP Build Rich-Context AI Apps, Building Towards Computer Use</p>
-                <p><b>Meta</b>: Prompt Engineering with Llama</p>
-                <p><b>Kaggle</b>: Intro to Game AI and Reinforcement Learning, Time Series, Computer Vision, Machine Learning Explainability, Intro to AI Ethics, Data Cleaning, Intro to Deep Learning, Intro to SQL, Feature Engineering, Data Visualization, Intermediate Machine Learning, Pandas, Intro to Machine Learning, Python, Intro to Programming</p>
-            </section>
-
-            <!-- Acknowledgments Section -->
-            <section id="acknowledgments">
-                <h2>Acknowledgments</h2>
-                <p>Special recognition to the educators who have shaped my understanding: Andrew Ng for systematic ML fundamentals, Andrej Karpathy for neural network clarity, Grant Sanderson for mathematical visualization, and Boris Meinardus for structured learning approaches.</p>
-            </section>
-        </aside>
     </main>
 
     <!-- ================================
