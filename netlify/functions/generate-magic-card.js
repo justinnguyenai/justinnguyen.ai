@@ -5,8 +5,8 @@ const openai = new OpenAI({
 });
 
 async function generateMtgCard() {
-  const randomTypeNumber = Math.floor(Math.random() * 8);
-  const cardTypes = ['land', 'creature', 'artifact', 'enchantment', 'planeswalker', 'battle', 'instant', 'sorcery'];
+  const randomTypeNumber = Math.floor(Math.random() * 7);
+  const cardTypes = ['land', 'creature', 'artifact', 'enchantment', 'planeswalker', 'instant', 'sorcery'];
   const cardType = cardTypes[randomTypeNumber];
 
  let cardRarity;
@@ -33,8 +33,7 @@ async function generateMtgCard() {
 
   const cardTypeAttributes = {
     creature: 'Power/Toughness:',
-    planeswalker: 'Loyalty:',
-    battle: 'Defense:'
+    planeswalker: 'Loyalty:'
   };
   const additionalAttribute = cardTypeAttributes[cardType] || '';
 
@@ -69,7 +68,7 @@ Ensure that:
 - The card text is clear, concise, and follows Magic: The Gathering conventions.
 - All elements are consistent with the card's color, type, and rarity.
 - The card is balanced and interesting for gameplay.
-- Only include Power/Toughness for creatures, Loyalty for planeswalkers, and Defense for battles.
+- Only include Power/Toughness for creatures and Loyalty for planeswalkers.
 - Do not use any special formatting characters like asterisks or underscores.
 - Do not include empty lines.
 - Include the '---' separator exactly as shown above to divide the flavor text from the brief review.`;

@@ -4,33 +4,43 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 
 ## Project Overview
 
-This is a personal portfolio website for Justin Nguyen, built with vanilla HTML/CSS/JavaScript and deployed on Netlify with serverless functions.
+This is a personal portfolio website for Justin Nguyen, built with vanilla HTML/CSS/JavaScript and deployed on Netlify with serverless functions. The codebase has been extensively refactored for maximum readability, maintainability, and beginner-friendliness.
 
 ## Tech Stack
 
 - **Frontend**: Vanilla HTML/CSS/JavaScript (no framework)
 - **Backend**: Netlify Functions (serverless)
-- **API Integration**: OpenAI API for MTG card generation
+- **API Integration**: OpenAI API for Magic card generation
 - **Deployment**: Netlify (static hosting + serverless functions)
 
 ## Project Structure
 
 ```
 /
-├── index.html                    # Main portfolio page
-├── script.js                     # Main site functionality (dark mode, navigation)
-├── styles.css                    # Main site styles
-├── mtg/                         # MTG Card Generator project
-│   ├── index.html
-│   ├── mtg-script.js            # OpenAI API integration
-│   └── mtg-styles.css
-├── particle-life/               # Particle Life simulation project
-│   ├── index.html
-│   ├── particle-life-script.js  # Simulation logic
-│   └── particle-life-styles.css
-└── netlify/functions/           # Serverless functions
-    └── generate-mtg-card.js     # OpenAI API endpoint
+├── index.html                    # Main portfolio page (self-contained)
+├── magic-card-generator.html     # MTG Card Generator project (self-contained)
+├── particle-life.html           # Particle Life simulation project (self-contained)
+├── assets/                      # All static assets
+│   ├── favicon.png
+│   ├── profile-picture.jpg
+│   ├── kalshi.jpg               # Project images
+│   ├── magic-card-generator.jpg
+│   ├── particle-life.gif
+│   ├── tetris.gif
+│   ├── snake.gif
+│   ├── flappy-bird.gif
+│   └── river.mp3                # Audio file for particle life
+└── netlify/functions/
+    └── generate-magic-card.js   # OpenAI API endpoint
 ```
+
+## Architecture Philosophy
+
+**Self-Contained Files**: Each HTML file contains all its CSS and JavaScript embedded with extensive comments (700+ lines of documentation per file). This approach:
+- Eliminates file separation complexity
+- Makes each project completely independent
+- Provides comprehensive inline documentation
+- Enables beginners to understand everything in one place
 
 ## Common Commands
 
@@ -53,29 +63,75 @@ npm install
 netlify dev
 ```
 
-## Architecture Notes
+## Code Quality Standards
 
-### Frontend Architecture
-- **No build step**: Files are served directly, no bundling or transpilation
-- **Dark mode**: Implemented via localStorage and CSS variables in script.js
-- **Project routing**: Each project has its own subdirectory with independent HTML/CSS/JS
+### Documentation
+- **Extensive comments**: Every section, function, and style rule is documented
+- **Beginner-friendly**: Comments explain HTML/CSS/JavaScript concepts
+- **Code organization**: Clear section headers and logical grouping
 
-### Serverless Functions
-- **Location**: netlify/functions/generate-mtg-card.js
-- **Environment variables**: OPENAI_API_KEY must be set in Netlify dashboard
-- **CORS**: Already configured for justinnguyen.ai domain
+### Naming Conventions
+- **Descriptive names**: `magic-card-generator.html` instead of `mtg.html`
+- **Consistent kebab-case**: All multi-word files use hyphens
+- **No acronyms**: Full descriptive names for clarity
+- **No version numbers**: Clean filenames without version suffixes
 
-### Key Implementation Details
+### Visual Consistency
+- **Standardized buttons**: Consistent padding (0.5rem 1rem), font-size (1rem), colors
+- **Uniform spacing**: Consistent margins, padding, and border-radius (4px)
+- **Color scheme**: Professional purple theme (#7c3aed) with proper dark mode support
+- **Typography**: Roboto font family throughout (except intentional monospace)
 
-1. **Dark Mode Toggle**: Managed in script.js using localStorage for persistence
-2. **MTG Card Generator**: Makes API calls to /api/generate-mtg-card endpoint which proxies to OpenAI
-3. **Particle Life Simulation**: Self-contained canvas-based simulation with audio integration
-4. **Responsive Design**: CSS Grid and Flexbox used throughout, no CSS framework
+## Key Implementation Details
+
+1. **Dark Mode Toggle**: Managed via localStorage with consistent behavior across all pages
+2. **Magic Card Generator**: Makes API calls to `/api/generate-magic-card` endpoint
+3. **Particle Life Simulation**: Complex physics simulation with descriptive variable names
+4. **Responsive Design**: Mobile-first approach with consistent breakpoints
+5. **Asset Management**: Single `assets/` folder for all static files
 
 ## Development Guidelines
 
-- Keep vanilla JavaScript approach - no frameworks unless specifically requested
-- Maintain file separation (HTML, CSS, JS in separate files)
+### Code Style
+- **No frameworks**: Keep vanilla JavaScript approach
+- **Self-contained files**: Embed CSS/JS in HTML files
+- **Extensive comments**: Document every section and function
+- **Descriptive naming**: Use full descriptive names, avoid abbreviations
+- **Consistent formatting**: Follow established patterns
+
+### File Organization
+- **Root level projects**: Keep HTML files at root for simplicity
+- **Single assets folder**: All static files in `assets/` directory
+- **Kebab-case naming**: Use hyphens for multi-word filenames
+- **No version numbers**: Avoid version suffixes in filenames
+
+### Performance Considerations
+- **Typed arrays**: Use Float32Array/Int32Array for particle simulation
+- **Efficient rendering**: RequestAnimationFrame for smooth animations
+- **Image optimization**: Appropriate formats (PNG for icons, JPG for photos, GIF for animations)
+
+### Testing
 - Test serverless functions with actual Netlify environment variables
-- Preserve existing responsive design patterns when adding new features
-- Any new API integrations should use Netlify Functions for security
+- Verify dark mode functionality across all pages
+- Check responsive design on multiple screen sizes
+- Validate all asset paths after any file reorganization
+
+### Adding New Features
+- Follow existing comment structure and density
+- Use consistent naming conventions
+- Maintain visual consistency with existing button/color schemes
+- Add comprehensive inline documentation
+- Test across all three pages for consistency
+
+## Security Notes
+- Never commit API keys or secrets to repository
+- Use Netlify Functions for any server-side API calls
+- CORS is configured for justinnguyen.ai domain
+- Environment variables set in Netlify dashboard
+
+## Accessibility
+- Semantic HTML structure throughout
+- Proper alt text for all images
+- Keyboard navigation support where applicable
+- Color contrast meets accessibility standards
+- Screen reader friendly with proper headings hierarchy
