@@ -18,6 +18,7 @@ This is a personal portfolio website for Justin Nguyen, built with vanilla HTML/
 ```
 /
 ├── index.html                    # Main portfolio page (self-contained)
+├── projects.html                 # Dedicated projects showcase page (self-contained)
 ├── magic-card-generator.html     # MTG Card Generator project (self-contained)
 ├── particle-life.html           # Particle Life simulation project (self-contained)
 ├── assets/                      # All static assets
@@ -30,6 +31,8 @@ This is a personal portfolio website for Justin Nguyen, built with vanilla HTML/
 │   ├── snake.gif
 │   ├── flappy-bird.gif
 │   └── river.mp3                # Audio file for particle life
+├── netlify.toml                 # Netlify deployment configuration
+├── package.json                 # Node.js dependencies for serverless functions
 └── netlify/functions/
     └── generate-magic-card.js   # OpenAI API endpoint
 ```
@@ -85,10 +88,11 @@ netlify dev
 ## Key Implementation Details
 
 1. **Dark Mode Toggle**: Managed via localStorage with consistent behavior across all pages
-2. **Magic Card Generator**: Makes API calls to `/api/generate-magic-card` endpoint
-3. **Particle Life Simulation**: Complex physics simulation with descriptive variable names
-4. **Responsive Design**: Mobile-first approach with consistent breakpoints
-5. **Asset Management**: Single `assets/` folder for all static files
+2. **Projects Page**: Dedicated showcase of portfolio projects with visual consistency
+3. **Magic Card Generator**: Makes API calls to `/api/generate-magic-card` endpoint
+4. **Particle Life Simulation**: Complex physics simulation with descriptive variable names
+5. **Responsive Design**: Mobile-first approach with consistent breakpoints
+6. **Asset Management**: Single `assets/` folder for all static files
 
 ## Development Guidelines
 
@@ -121,7 +125,7 @@ netlify dev
 - Use consistent naming conventions
 - Maintain visual consistency with existing button/color schemes
 - Add comprehensive inline documentation
-- Test across all three pages for consistency
+- Test across all four pages for consistency
 
 ## Security Notes
 - Never commit API keys or secrets to repository
