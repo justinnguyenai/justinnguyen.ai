@@ -4,14 +4,14 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 
 ## Project Overview
 
-This is a personal portfolio website for Justin Nguyen, built with vanilla HTML/CSS/JavaScript and deployed on Netlify with serverless functions. The codebase has been extensively refactored for maximum readability, maintainability, and beginner-friendliness.
+This is a personal portfolio website for Justin Nguyen, built with vanilla HTML/CSS/JavaScript. Uses a hybrid deployment: GitHub Pages for static hosting and Netlify for serverless functions. The codebase has been extensively refactored for maximum readability, maintainability, and beginner-friendliness.
 
 ## Tech Stack
 
 - **Frontend**: Vanilla HTML/CSS/JavaScript (no framework)
 - **Backend**: Netlify Functions (serverless)
 - **API Integration**: OpenAI API for Magic card generation
-- **Deployment**: Netlify (static hosting + serverless functions)
+- **Deployment**: GitHub Pages (static hosting) + Netlify (serverless functions)
 
 ## Project Structure
 
@@ -66,6 +66,18 @@ npm install
 netlify dev
 ```
 
+## Deployment Architecture
+
+**Hybrid Hosting Setup:**
+- **Static Files**: Hosted on GitHub Pages at `https://justinnguyenai.github.io/justinnguyen.ai/`
+- **Serverless Functions**: Hosted on Netlify at `https://justinnguyenai.netlify.app/`
+- **API Endpoint**: `https://justinnguyenai.netlify.app/.netlify/functions/generate-magic-card`
+
+This hybrid approach provides:
+- Free static hosting via GitHub Pages
+- Serverless backend capabilities via Netlify
+- Separation of concerns between frontend and backend
+
 ## Code Quality Standards
 
 ### Documentation
@@ -89,7 +101,7 @@ netlify dev
 
 1. **Dark Mode Toggle**: Managed via localStorage with consistent behavior across all pages
 2. **Projects Page**: Dedicated showcase of portfolio projects with visual consistency
-3. **Magic Card Generator**: Makes API calls to `/api/generate-magic-card` endpoint
+3. **Magic Card Generator**: Makes API calls to Netlify function at `https://justinnguyenai.netlify.app/.netlify/functions/generate-magic-card`
 4. **Particle Life Simulation**: Complex physics simulation with descriptive variable names
 5. **Responsive Design**: Mobile-first approach with consistent breakpoints
 6. **Asset Management**: Single `assets/` folder for all static files
@@ -130,7 +142,7 @@ netlify dev
 ## Security Notes
 - Never commit API keys or secrets to repository
 - Use Netlify Functions for any server-side API calls
-- CORS is configured for justinnguyen.ai domain
+- CORS is configured to allow GitHub Pages domain
 - Environment variables set in Netlify dashboard
 
 ## Accessibility
