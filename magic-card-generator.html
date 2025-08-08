@@ -389,8 +389,8 @@
 
                 try {
                     // Make API call to serverless function
-                    // Using relative path so it works on any domain
-                    const response = await fetch('/.netlify/functions/generate-magic-card');
+                    // Using absolute Netlify URL for GitHub Pages + Netlify hybrid setup
+                    const response = await fetch('https://justinnguyenai.netlify.app/.netlify/functions/generate-magic-card');
                     
                     // Check if the response was successful
                     if (!response.ok) {
