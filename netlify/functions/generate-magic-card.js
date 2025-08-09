@@ -98,7 +98,7 @@ exports.handler = async function(event, context) {
     return {
       statusCode: 200,
       headers: {
-        "Access-Control-Allow-Origin": "https://justinnguyen.ai",
+        "Access-Control-Allow-Origin": "*",
         "Access-Control-Allow-Headers": "Content-Type",
       },
       body: JSON.stringify({ card: card })
@@ -107,7 +107,7 @@ exports.handler = async function(event, context) {
     return {
       statusCode: 500,
       headers: {
-        "Access-Control-Allow-Origin": "https://justinnguyen.ai",
+        "Access-Control-Allow-Origin": "*",
         "Access-Control-Allow-Headers": "Content-Type",
       },
       body: JSON.stringify({ error: 'Failed to generate card' })
